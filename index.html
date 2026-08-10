@@ -1,669 +1,645 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>allinone.tools - Free & Useful Student Utilities</title>
-  <meta name="description" content="All in one - A single destination for all your student, text, calculation, and developer needs. Fast, private, and 100% client-side.">
-  
-  <!-- Google Fonts (Same as allinone.tools aesthetic) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Toolify - Free Online Tools for Everyone</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+  :root{
+    --blue:#2563eb;
+    --blue-dark:#1d4ed8;
+    --bg:#f8fafc;
+    --card:#ffffff;
+    --text:#0f172a;
+    --muted:#64748b;
+    --border:#e2e8f0;
+    --shadow:0 1px 3px rgba(15,23,42,0.08), 0 1px 2px rgba(15,23,42,0.06);
+  }
+  [data-theme="dark"]{
+    --bg:#0b1220;
+    --card:#121c2e;
+    --text:#e6edf7;
+    --muted:#93a2b8;
+    --border:#22314a;
+    --shadow:0 1px 3px rgba(0,0,0,0.4);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);transition:background .2s,color .2s;}
+  h1,h2,h3{font-family:'Poppins',sans-serif;margin:0;}
+  a{text-decoration:none;color:inherit;}
+  header{
+    position:sticky;top:0;z-index:50;background:var(--card);
+    border-bottom:1px solid var(--border);
+  }
+  .header-inner{
+    max-width:1200px;margin:0 auto;display:flex;align-items:center;
+    gap:24px;padding:14px 24px;
+  }
+  .logo{display:flex;align-items:center;gap:8px;font-family:'Poppins',sans-serif;font-weight:700;font-size:20px;flex-shrink:0;}
+  .logo-icon{
+    width:32px;height:32px;border-radius:8px;background:var(--blue);
+    display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;
+  }
+  nav{display:flex;gap:22px;flex:1;flex-wrap:wrap;}
+  nav a{font-size:14.5px;font-weight:500;color:var(--muted);cursor:pointer;padding:4px 0;border-bottom:2px solid transparent;}
+  nav a.active,nav a:hover{color:var(--blue);border-bottom-color:var(--blue);}
+  .header-right{display:flex;align-items:center;gap:14px;}
+  .search-box{
+    position:relative;
+  }
+  .search-box input{
+    width:200px;padding:8px 12px 8px 32px;border-radius:20px;border:1px solid var(--border);
+    background:var(--bg);color:var(--text);font-size:13.5px;outline:none;
+  }
+  .search-box input:focus{border-color:var(--blue);}
+  .search-box svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);opacity:.5;}
+  .toggle{
+    width:42px;height:24px;border-radius:20px;background:var(--border);position:relative;cursor:pointer;flex-shrink:0;
+  }
+  .toggle::after{
+    content:'';position:absolute;width:18px;height:18px;background:#fff;border-radius:50%;top:3px;left:3px;
+    transition:left .2s;box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .toggle::after{left:21px;background:var(--blue);}
+  main{max-width:1200px;margin:0 auto;padding:48px 24px 80px;}
 
-  <style>
-    /* ==========================================================================
-       allinone.tools Design System - Glassmorphism & Modern SaaS Aesthetic
-       ========================================================================== */
-    :root {
-      --primary: #766FDE;
-      --primary-hover: #635cc9;
-      --primary-light: rgba(118, 111, 222, 0.12);
-      --bg: #fafafa;
-      --card-bg: #ffffff;
-      --text: #0f172a;
-      --text-muted: #64748b;
-      --border: #e2e8f0;
-      --radius: 16px;
-      --shadow-sm: 0 2px 4px rgba(0,0,0,0.03);
-      --shadow-md: 0 10px 25px -5px rgba(118, 111, 222, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
-      --font-head: 'Bricolage Grotesque', sans-serif;
-      --font-body: 'Plus Jakarta Sans', sans-serif;
-    }
+  /* HOME */
+  .hero{text-align:center;margin-bottom:44px;}
+  .hero .brand{color:var(--blue);font-size:22px;font-weight:700;margin-bottom:6px;}
+  .hero h1{font-size:38px;font-weight:700;margin-bottom:14px;}
+  .hero p{color:var(--muted);font-size:16px;}
+  .search-hero{max-width:600px;margin:28px auto 0;}
+  .search-hero input{
+    width:100%;padding:14px 20px;border-radius:12px;border:1px solid var(--border);
+    background:var(--card);color:var(--text);font-size:15px;outline:none;box-shadow:var(--shadow);
+  }
+  .search-hero input:focus{border-color:var(--blue);}
+  section.block{margin-top:40px;}
+  section.block h2{font-size:19px;margin-bottom:16px;}
+  .grid{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;}
+  @media(max-width:900px){.grid{grid-template-columns:repeat(3,1fr);}}
+  @media(max-width:560px){.grid{grid-template-columns:repeat(2,1fr);}}
+  .card{
+    background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px 16px;
+    text-align:center;cursor:pointer;transition:transform .15s, box-shadow .15s;box-shadow:var(--shadow);
+  }
+  .card:hover{transform:translateY(-3px);box-shadow:0 6px 16px rgba(37,99,235,0.15);}
+  .card .ico{
+    width:44px;height:44px;border-radius:10px;background:#dbeafe;color:var(--blue);
+    display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:20px;
+  }
+  [data-theme="dark"] .card .ico{background:#1e3a5f;}
+  .card span{font-size:14px;font-weight:600;}
+  footer{border-top:1px solid var(--border);padding:40px 24px;}
+  .footer-inner{max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between;}
+  .footer-inner h3{font-family:'Poppins',sans-serif;color:var(--blue);margin-bottom:10px;}
+  .footer-inner p, .footer-inner a{color:var(--muted);font-size:13.5px;line-height:1.8;}
+  .footer-inner a{display:block;}
+  .copyright{text-align:center;margin-top:30px;color:var(--muted);font-size:13px;}
 
-    [data-theme="dark"] {
-      --primary: #8b85f0;
-      --primary-hover: #a19bf5;
-      --primary-light: rgba(139, 133, 240, 0.18);
-      --bg: #090d16;
-      --card-bg: #131b2e;
-      --text: #f8fafc;
-      --text-muted: #94a3b8;
-      --border: #1e293b;
-      --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: var(--font-body);
-      background-color: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
-
-    .container { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 1.25rem; }
-
-    /* Header Navigation */
-    header {
-      background: rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    [data-theme="dark"] header { background: rgba(19, 27, 46, 0.8); }
-
-    .header-in {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 70px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-family: var(--font-head);
-      font-size: 1.4rem;
-      font-weight: 800;
-      color: var(--text);
-      text-decoration: none;
-      cursor: pointer;
-    }
-
-    .brand-logo-box {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, #766FDE 0%, #a855f7 100%);
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-      box-shadow: 0 4px 12px rgba(118, 111, 222, 0.3);
-    }
-
-    .theme-toggle {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      color: var(--text);
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-      transition: all 0.2s;
-    }
-    .theme-toggle:hover { border-color: var(--primary); color: var(--primary); transform: scale(1.05); }
-
-    /* Hero Section */
-    .hero {
-      text-align: center;
-      padding: 3.5rem 1rem 2rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      background: var(--primary-light);
-      color: var(--primary);
-      padding: 0.35rem 1rem;
-      border-radius: 30px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin-bottom: 1.2rem;
-    }
-
-    .hero h1 {
-      font-family: var(--font-head);
-      font-size: 3rem;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1.15;
-      margin-bottom: 0.8rem;
-    }
-
-    .hero h1 span {
-      background: linear-gradient(135deg, #766FDE 0%, #ec4899 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero p {
-      color: var(--text-muted);
-      font-size: 1.1rem;
-      max-width: 620px;
-      margin: 0 auto 2rem;
-    }
-
-    /* Instant Search Bar */
-    .search-wrapper {
-      max-width: 600px;
-      margin: 0 auto;
-      position: relative;
-    }
-
-    .search-box {
-      width: 100%;
-      padding: 1.1rem 1.25rem 1.1rem 3.25rem;
-      font-size: 1.05rem;
-      border: 2px solid var(--border);
-      border-radius: 20px;
-      background: var(--card-bg);
-      color: var(--text);
-      outline: none;
-      box-shadow: var(--shadow-md);
-      transition: all 0.2s;
-    }
-
-    .search-box:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 4px var(--primary-light);
-    }
-
-    .search-icon-inside {
-      position: absolute;
-      left: 1.25rem;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-muted);
-      font-size: 1.2rem;
-      pointer-events: none;
-    }
-
-    /* Category Filter Pills */
-    .filter-pills {
-      display: flex;
-      gap: 0.6rem;
-      overflow-x: auto;
-      padding-bottom: 0.5rem;
-      margin: 2.5rem 0 1.5rem;
-      scrollbar-width: none;
-    }
-
-    .pill {
-      padding: 0.55rem 1.25rem;
-      border-radius: 30px;
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      font-weight: 600;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: all 0.2s;
-    }
-
-    .pill.active, .pill:hover {
-      background: var(--primary);
-      color: #ffffff;
-      border-color: var(--primary);
-      box-shadow: 0 4px 12px rgba(118, 111, 222, 0.3);
-    }
-
-    /* Active Tool Studio / Workspace Drawer */
-    #workspace {
-      display: none;
-      background: var(--card-bg);
-      border: 2px solid var(--primary);
-      border-radius: var(--radius);
-      padding: 2rem;
-      margin-bottom: 2.5rem;
-      box-shadow: var(--shadow-md);
-      position: relative;
-      animation: slideDown 0.3s ease-out;
-    }
-
-    @keyframes slideDown {
-      from { opacity: 0; transform: translateY(-15px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .close-ws-btn {
-      position: absolute;
-      right: 1.25rem;
-      top: 1.25rem;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 1.1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-    }
-    .close-ws-btn:hover { color: #ef4444; border-color: #ef4444; }
-
-    /* Tools Bento Grid */
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 1.25rem;
-      margin-bottom: 4rem;
-    }
-
-    .tool-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.25rem;
-      cursor: pointer;
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
-
-    .tool-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--primary);
-      box-shadow: var(--shadow-md);
-    }
-
-    .tool-card-head {
-      display: flex;
-      align-items: center;
-      gap: 0.85rem;
-      margin-bottom: 0.75rem;
-    }
-
-    .tool-icon-box {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      background: var(--primary-light);
-      color: var(--primary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.35rem;
-      flex-shrink: 0;
-    }
-
-    .tool-card-title {
-      font-family: var(--font-head);
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    .tool-card-desc {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      line-height: 1.5;
-      flex-grow: 1;
-    }
-
-    .tool-card-badge {
-      align-self: flex-start;
-      margin-top: 1rem;
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--primary);
-      background: var(--primary-light);
-      padding: 0.2rem 0.6rem;
-      border-radius: 20px;
-    }
-
-    /* Form Controls Inside Workspace */
-    .form-group { margin-bottom: 1.25rem; }
-    .form-group label { display: block; font-size: 0.9rem; font-weight: 600; margin-bottom: 0.4rem; }
-    .form-control {
-      width: 100%;
-      padding: 0.75rem 1rem;
-      font-size: 0.95rem;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      background: var(--bg);
-      color: var(--text);
-      outline: none;
-      transition: all 0.2s;
-    }
-    .form-control:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-light); }
-    textarea.form-control { min-height: 120px; resize: vertical; font-family: monospace; }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      padding: 0.75rem 1.5rem;
-      border-radius: 10px;
-      border: none;
-      background: var(--primary);
-      color: #ffffff;
-      font-weight: 700;
-      font-size: 0.95rem;
-      cursor: pointer;
-      transition: all 0.2s;
-      margin-right: 0.5rem;
-      margin-top: 0.5rem;
-    }
-    .btn:hover { background: var(--primary-hover); transform: translateY(-1px); }
-    .btn-secondary { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
-    .btn-secondary:hover { background: var(--border); }
-
-    .output-box {
-      margin-top: 1.25rem;
-      padding: 1.25rem;
-      background: var(--bg);
-      border: 1px dashed var(--border);
-      border-radius: 12px;
-      font-weight: 600;
-      white-space: pre-wrap;
-      word-break: break-all;
-    }
-
-    footer {
-      background: var(--card-bg);
-      border-top: 1px solid var(--border);
-      padding: 2rem 0;
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      margin-top: auto;
-    }
-
-    @media (max-width: 768px) {
-      .hero h1 { font-size: 2.2rem; }
-      .hero p { font-size: 1rem; }
-      .tools-grid { grid-template-columns: 1fr; }
-    }
-  </style>
+  /* TOOL PAGES */
+  .tool-page{display:none;}
+  .tool-page.active{display:block;}
+  #home-page.active{display:block;}
+  .back-link{color:var(--blue);font-size:14px;font-weight:600;cursor:pointer;display:inline-block;margin-bottom:18px;}
+  .tool-card{
+    background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;box-shadow:var(--shadow);
+    max-width:760px;margin:0 auto;
+  }
+  .tool-card h2{font-size:22px;margin-bottom:6px;}
+  .tool-card .sub{color:var(--muted);font-size:14px;margin-bottom:24px;}
+  .field{margin-bottom:18px;}
+  .field label{display:block;font-size:13.5px;font-weight:600;margin-bottom:6px;color:var(--muted);}
+  textarea, input[type="text"], input[type="number"], select{
+    width:100%;padding:11px 13px;border-radius:8px;border:1px solid var(--border);
+    background:var(--bg);color:var(--text);font-size:14px;font-family:inherit;outline:none;
+  }
+  textarea:focus, input:focus, select:focus{border-color:var(--blue);}
+  textarea{min-height:130px;resize:vertical;}
+  .btn{
+    background:var(--blue);color:#fff;border:none;padding:11px 22px;border-radius:8px;
+    font-size:14.5px;font-weight:600;cursor:pointer;transition:background .15s;
+  }
+  .btn:hover{background:var(--blue-dark);}
+  .btn.secondary{background:transparent;color:var(--blue);border:1px solid var(--blue);}
+  .btn.secondary:hover{background:#dbeafe;}
+  [data-theme="dark"] .btn.secondary:hover{background:#1e3a5f;}
+  .row{display:flex;gap:10px;flex-wrap:wrap;}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px;}
+  @media(max-width:560px){.stats{grid-template-columns:repeat(2,1fr);}}
+  .stat{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center;}
+  .stat b{display:block;font-size:22px;color:var(--blue);}
+  .stat span{font-size:12px;color:var(--muted);}
+  .drop{
+    border:2px dashed var(--border);border-radius:10px;padding:30px;text-align:center;cursor:pointer;
+    color:var(--muted);font-size:14px;margin-bottom:16px;
+  }
+  .drop:hover{border-color:var(--blue);color:var(--blue);}
+  .thumb-list{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0;}
+  .thumb-list img{width:70px;height:70px;object-fit:cover;border-radius:8px;border:1px solid var(--border);}
+  .gpa-row{display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:8px;margin-bottom:8px;align-items:center;}
+  .gpa-row input,.gpa-row select{margin:0;}
+  .remove-row{background:none;border:none;color:#ef4444;cursor:pointer;font-size:18px;font-weight:700;}
+  .result-box{
+    margin-top:20px;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px;
+    font-size:14px;color:var(--text);white-space:pre-wrap;word-break:break-word;
+  }
+  #qr-canvas-wrap{display:flex;justify-content:center;margin-top:20px;}
+  .badge{display:inline-block;background:#dbeafe;color:var(--blue);font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;margin-bottom:14px;}
+  [data-theme="dark"] .badge{background:#1e3a5f;}
+</style>
 </head>
 <body>
 
-  <!-- Header -->
-  <header>
-    <div class="container header-in">
-      <div class="brand" onclick="closeWorkspace()">
-        <div class="brand-logo-box">🛠️</div>
-        allinone.tools
+<header>
+  <div class="header-inner">
+    <div class="logo"><span class="logo-icon">T</span> Toolify</div>
+    <nav>
+      <a class="nav-link active" data-page="home-page">Home</a>
+      <a class="nav-link" data-page="pdf-page">PDF Tools</a>
+      <a class="nav-link" data-page="image-page">Image Tools</a>
+      <a class="nav-link" data-page="text-page">Text Tools</a>
+      <a class="nav-link" data-page="dev-page">Developer Tools</a>
+      <a class="nav-link" data-page="student-page">Student Tools</a>
+      <a class="nav-link" data-page="gen-page">Generators</a>
+    </nav>
+    <div class="header-right">
+      <div class="search-box">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input id="header-search" type="text" placeholder="Search tools...">
       </div>
-      <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle Light/Dark Theme">🌙</button>
+      <div class="toggle" id="theme-toggle"></div>
     </div>
-  </header>
+  </div>
+</header>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="container">
-      <div class="hero-badge">⚡ 100% Free & Client-Side Privacy</div>
-      <h1>All in one destination for <span>all your needs</span></h1>
-      <p>Calculators, converters, text utilities, image tools, study timers, and developer utilities — all running instantly inside your browser.</p>
+<main>
 
-      <!-- Instant Search Bar -->
-      <div class="search-wrapper">
-        <span class="search-icon-inside">🔍</span>
-        <input type="text" id="searchInput" class="search-box" placeholder="Search any tool (e.g. GPA, Age, Percentage, Word Counter, QR)..." oninput="renderToolsGrid()">
+  <!-- HOME PAGE -->
+  <div class="tool-page active" id="home-page">
+    <div class="hero">
+      <div class="brand">Toolify</div>
+      <h1>Free Online Tools for Everyone</h1>
+      <p>Convert, compress, calculate, generate and format files instantly.</p>
+      <div class="search-hero">
+        <input id="hero-search" type="text" placeholder="Search for a tool...">
       </div>
     </div>
-  </section>
 
-  <!-- Main Section -->
-  <main class="container">
+    <section class="block">
+      <h2>Category Cards</h2>
+      <div class="grid" id="category-grid">
+        <div class="card" data-page="pdf-page"><div class="ico">📄</div><span>PDF Tools</span></div>
+        <div class="card" data-page="image-page"><div class="ico">🖼️</div><span>Image Tools</span></div>
+        <div class="card" data-page="text-page"><div class="ico">🅣</div><span>Text Tools</span></div>
+        <div class="card" data-page="dev-page"><div class="ico">&lt;/&gt;</div><span>Developer Tools</span></div>
+        <div class="card" data-page="student-page"><div class="ico">🎓</div><span>Student Tools</span></div>
+        <div class="card" data-page="gen-page"><div class="ico">⚙️</div><span>Generators</span></div>
+      </div>
+    </section>
 
-    <!-- Active Tool Studio / Workspace Drawer -->
-    <div id="workspace">
-      <button class="close-ws-btn" onclick="closeWorkspace()">✕</button>
-      <div id="workspaceBody"></div>
+    <section class="block">
+      <h2>Popular Tools Cards</h2>
+      <div class="grid" id="popular-grid">
+        <div class="card" data-page="pdf-page"><div class="ico">🖨️</div><span>JPG → PDF</span></div>
+        <div class="card" data-page="image-page"><div class="ico">📉</div><span>Image Compressor</span></div>
+        <div class="card" data-page="text-page"><div class="ico">W</div><span>Word Counter</span></div>
+        <div class="card" data-page="dev-page"><div class="ico">{}</div><span>JSON Formatter</span></div>
+        <div class="card" data-page="student-page"><div class="ico">🧮</div><span>GPA Calculator</span></div>
+        <div class="card" data-page="gen-page"><div class="ico">▦</div><span>QR Code Generator</span></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- PDF TOOLS: JPG to PDF -->
+  <div class="tool-page" id="pdf-page">
+    <span class="back-link" data-page="home-page">← Back to Home</span>
+    <div class="tool-card">
+      <span class="badge">PDF TOOLS</span>
+      <h2>JPG → PDF Converter</h2>
+      <p class="sub">Upload one or more images and combine them into a single PDF file.</p>
+      <div class="drop" id="pdf-drop">Click or drag images here (JPG / PNG)</div>
+      <input type="file" id="pdf-file-input" accept="image/*" multiple style="display:none">
+      <div class="thumb-list" id="pdf-thumbs"></div>
+      <div class="row">
+        <button class="btn" id="pdf-convert-btn">Convert to PDF</button>
+        <button class="btn secondary" id="pdf-clear-btn">Clear</button>
+      </div>
+      <div class="result-box" id="pdf-result" style="display:none;"></div>
     </div>
+  </div>
 
-    <!-- Category Filter Pills -->
-    <div class="filter-pills">
-      <button class="pill active" onclick="filterCategory('all', this)">All Tools</button>
-      <button class="pill" onclick="filterCategory('calc', this)">Calculators</button>
-      <button class="pill" onclick="filterCategory('study', this)">Study & Notes</button>
-      <button class="pill" onclick="filterCategory('text', this)">Text Tools</button>
-      <button class="pill" onclick="filterCategory('unit', this)">Converters</button>
-      <button class="pill" onclick="filterCategory('finance', this)">Finance</button>
-      <button class="pill" onclick="filterCategory('dev', this)">Developer</button>
+  <!-- IMAGE TOOLS: Compressor -->
+  <div class="tool-page" id="image-page">
+    <span class="back-link" data-page="home-page">← Back to Home</span>
+    <div class="tool-card">
+      <span class="badge">IMAGE TOOLS</span>
+      <h2>Image Compressor</h2>
+      <p class="sub">Reduce image file size by adjusting quality — right in your browser.</p>
+      <div class="drop" id="img-drop">Click or drag an image here</div>
+      <input type="file" id="img-file-input" accept="image/*" style="display:none">
+      <div class="field" id="quality-field" style="display:none;">
+        <label>Quality: <span id="quality-val">70</span>%</label>
+        <input type="range" id="quality-range" min="10" max="100" value="70">
+      </div>
+      <div id="img-preview-wrap" style="display:none;text-align:center;margin:14px 0;">
+        <img id="img-preview" style="max-width:100%;max-height:260px;border-radius:8px;border:1px solid var(--border);">
+      </div>
+      <div class="row" id="img-actions" style="display:none;">
+        <button class="btn" id="img-compress-btn">Compress</button>
+        <button class="btn secondary" id="img-download-btn" style="display:none;">Download</button>
+      </div>
+      <div class="result-box" id="img-result" style="display:none;"></div>
     </div>
+  </div>
 
-    <!-- Tools Grid -->
-    <div class="tools-grid" id="toolsGrid"></div>
-
-  </main>
-
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      © 2026 <strong>allinone.tools</strong> — Fast, private, and 100% browser-side utilities.
+  <!-- TEXT TOOLS: Word Counter -->
+  <div class="tool-page" id="text-page">
+    <span class="back-link" data-page="home-page">← Back to Home</span>
+    <div class="tool-card">
+      <span class="badge">TEXT TOOLS</span>
+      <h2>Word Counter</h2>
+      <p class="sub">Type or paste text to instantly see word, character and sentence counts.</p>
+      <div class="field">
+        <textarea id="word-input" placeholder="Start typing or paste your text here..."></textarea>
+      </div>
+      <div class="row">
+        <button class="btn secondary" id="text-upper">UPPERCASE</button>
+        <button class="btn secondary" id="text-lower">lowercase</button>
+        <button class="btn secondary" id="text-title">Title Case</button>
+        <button class="btn secondary" id="text-clear">Clear</button>
+      </div>
+      <div class="stats">
+        <div class="stat"><b id="wc-words">0</b><span>Words</span></div>
+        <div class="stat"><b id="wc-chars">0</b><span>Characters</span></div>
+        <div class="stat"><b id="wc-sentences">0</b><span>Sentences</span></div>
+        <div class="stat"><b id="wc-time">0</b><span>Min Read</span></div>
+      </div>
     </div>
-  </footer>
+  </div>
 
-  <!-- 100% Real Working JavaScript Engine -->
-  <script>
-    const TOOL_DATABASE = [
-      // Calculators
-      { id: "gpa-calc", name: "GPA Calculator", cat: "calc", icon: "🎓", desc: "Calculate grade point average from course grades and credits." },
-      { id: "percentage-calc", name: "Percentage Calculator", cat: "calc", icon: "📊", desc: "Calculate percentage values and fraction to percentage." },
-      { id: "target-grade", name: "Final Grade Calculator", cat: "calc", icon: "🎯", desc: "Find exact final exam score needed for target grade." },
-      { id: "age-calc", name: "Age & Birthday Calculator", cat: "calc", icon: "🎂", desc: "Exact age in years, months, days and next birthday count." },
-      { id: "scientific-calc", name: "Scientific Math Calculator", cat: "calc", icon: "🧮", desc: "Evaluate mathematical expressions, sqrt, and power." },
-      { id: "fraction-calc", name: "Fraction Calculator", cat: "calc", icon: "➗", desc: "Add, subtract, multiply, and divide fractions." },
+  <!-- DEVELOPER TOOLS: JSON Formatter -->
+  <div class="tool-page" id="dev-page">
+    <span class="back-link" data-page="home-page">← Back to Home</span>
+    <div class="tool-card">
+      <span class="badge">DEVELOPER TOOLS</span>
+      <h2>JSON Formatter</h2>
+      <p class="sub">Paste raw JSON and format or validate it instantly.</p>
+      <div class="field">
+        <label>Input</label>
+        <textarea id="json-input" placeholder='{"name":"Toolify","free":true}'></textarea>
+      </div>
+      <div class="row">
+        <button class="btn" id="json-format-btn">Format</button>
+        <button class="btn secondary" id="json-minify-btn">Minify</button>
+        <button class="btn secondary" id="json-clear-btn">Clear</button>
+      </div>
+      <div class="field" style="margin-top:16px;">
+        <label>Output</label>
+        <textarea id="json-output" readonly placeholder="Formatted JSON will appear here..."></textarea>
+      </div>
+      <div class="result-box" id="json-status" style="display:none;"></div>
+    </div>
+  </div>
 
-      // Study & Productivity
-      { id: "pomodoro", name: "Pomodoro Focus Timer", cat: "study", icon: "⏱️", desc: "25-minute study focus timer with break alerts." },
-      { id: "study-notes", name: "Auto-Save Quick Notes", cat: "study", icon: "📝", desc: "Auto-saving browser notepad in local memory." },
-      { id: "todo-planner", name: "Assignment Task Planner", cat: "study", icon: "✅", desc: "Interactive student task and assignment manager." },
-      { id: "qr-generator", name: "QR Code Generator", cat: "study", icon: "📱", desc: "Generate instant QR codes for links and text." },
-      { id: "reading-time", name: "Reading Time Estimator", cat: "study", icon: "📖", desc: "Estimate speech or reading duration from word count." },
+  <!-- STUDENT TOOLS: GPA Calculator -->
+  <div class="tool-page" id="student-page">
+    <span class="back-link" data-page="home-page">← Back to Home</span>
+    <div class="tool-card">
+      <span class="badge">STUDENT TOOLS</span>
+      <h2>GPA Calculator</h2>
+      <p class="sub">Add your courses with grade and credit hours to calculate your GPA (4.0 scale).</p>
+      <div id="gpa-rows"></div>
+      <div class="row" style="margin-top:10px;">
+        <button class="btn secondary" id="gpa-add-row">+ Add Course</button>
+        <button class="btn" id="gpa-calc-btn">Calculate GPA</button>
+      </div>
+      <div class="result-box" id="gpa-result" style="display:none;"></div>
+    </div>
+  </div>
 
-      // Text Tools
-      { id: "word-counter", name: "Word & Character Counter", cat: "text", icon: "🔤", desc: "Count words, characters, sentences, and paragraphs." },
-      { id: "case-converter", name: "Text Case Converter", cat: "text", icon: "🔠", desc: "Convert text to UPPERCASE, lowercase, or Title Case." },
-      { id: "space-remover", name: "Remove Extra Spaces", cat: "text", icon: "🧹", desc: "Clean up messy spacing and line breaks in text." },
-      { id: "text-reverser", name: "Text Reverser", cat: "text", icon: "🔄", desc: "Flip text characters or word sequence backwards." },
-      { id: "line-sorter", name: "Alphabetical Line Sorter", cat: "text", icon: "📋", desc: "Sort reference lists or text lines from A to Z." },
-      { id: "duplicate-remover", name: "Remove Duplicate Lines", cat: "text", icon: "✂️", desc: "Filter out repeated lines from text lists." },
+  <!-- GENERATORS: QR Code -->
+  <div class="tool-page" id="gen-page">
+    <span class="back-link" data-page="home-page">← Back to Home</span>
+    <div class="tool-card">
+      <span class="badge">GENERATORS</span>
+      <h2>QR Code Generator</h2>
+      <p class="sub">Enter any text or URL to generate a downloadable QR code.</p>
+      <div class="field">
+        <label>Text / URL</label>
+        <input type="text" id="qr-input" placeholder="https://example.com">
+      </div>
+      <div class="row">
+        <button class="btn" id="qr-generate-btn">Generate QR Code</button>
+        <button class="btn secondary" id="qr-download-btn" style="display:none;">Download PNG</button>
+      </div>
+      <div id="qr-canvas-wrap"></div>
+    </div>
+  </div>
 
-      // Unit Converters
-      { id: "len-converter", name: "Length Unit Converter", cat: "unit", icon: "📏", desc: "Convert Meters, KM, Feet, Inches, Miles." },
-      { id: "weight-converter", name: "Weight Unit Converter", cat: "unit", icon: "⚖️", desc: "Convert Kilograms, Grams, Pounds, Ounces." },
-      { id: "temp-converter", name: "Temperature Converter", cat: "unit", icon: "🌡️", desc: "Convert Celsius, Fahrenheit, and Kelvin." },
-      { id: "data-converter", name: "Data Storage Converter", cat: "unit", icon: "💾", desc: "Convert Bytes, KB, MB, GB, and TB." },
-      { id: "number-base", name: "Binary & Hex Base Converter", cat: "unit", icon: "🔢", desc: "Convert Decimal, Binary, and Hexadecimal numbers." },
+</main>
 
-      // Finance
-      { id: "simple-interest", name: "Simple Interest Calc", cat: "finance", icon: "💰", desc: "Calculate simple interest and total payback." },
-      { id: "compound-interest", name: "Compound Interest Calc", cat: "finance", icon: "📈", desc: "Calculate compounding investment growth." },
-      { id: "loan-emi", name: "Student Loan EMI Calc", cat: "finance", icon: "🏦", desc: "Compute monthly loan EMI and total interest." },
-      { id: "discount-calc", name: "Discount Calculator", cat: "finance", icon: "🏷️", desc: "Calculate final price after student discount." },
+<footer>
+  <div class="footer-inner">
+    <div>
+      <h3>Toolify</h3>
+      <p style="max-width:280px;">Free online tools to convert, compress, calculate, generate and format files instantly — all in your browser.</p>
+    </div>
+    <div>
+      <h3>Categories</h3>
+      <a class="nav-link" data-page="pdf-page">PDF Tools</a>
+      <a class="nav-link" data-page="image-page">Image Tools</a>
+      <a class="nav-link" data-page="text-page">Text Tools</a>
+      <a class="nav-link" data-page="dev-page">Developer Tools</a>
+    </div>
+    <div>
+      <h3>Links</h3>
+      <a href="#">Contact Us</a>
+      <a href="#">Contact Links</a>
+      <a href="#">Contact Links</a>
+    </div>
+  </div>
+  <div class="copyright">Copyright © 2026 Toolify</div>
+</footer>
 
-      // Developer Tools
-      { id: "pwd-generator", name: "Strong Password Generator", cat: "dev", icon: "🔐", desc: "Create randomized secure high-entropy passwords." },
-      { id: "json-formatter", name: "JSON Formatter & Validator", cat: "dev", icon: "💻", desc: "Beautify or minify JSON code structures." },
-      { id: "base64-tool", name: "Base64 Encoder / Decoder", cat: "dev", icon: "🔤", desc: "Encode or decode strings into Base64." },
-      { id: "url-encoder", name: "URL Encoder / Decoder", cat: "dev", icon: "🔗", desc: "Format special characters for website URLs." },
-      { id: "img-compressor", name: "Client Image Compressor", cat: "dev", icon: "🖼️", desc: "Compress JPEG/PNG image sizes in browser." }
-    ];
+<script>
+/* ---------- NAVIGATION ---------- */
+function showPage(id){
+  document.querySelectorAll('.tool-page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('nav .nav-link').forEach(a=>a.classList.toggle('active', a.dataset.page===id));
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+document.querySelectorAll('[data-page]').forEach(el=>{
+  el.addEventListener('click', ()=> showPage(el.dataset.page));
+});
 
-    let currentCategory = 'all';
+/* ---------- THEME TOGGLE ---------- */
+const themeToggle = document.getElementById('theme-toggle');
+themeToggle.addEventListener('click', ()=>{
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
 
-    document.addEventListener("DOMContentLoaded", () => {
-      renderToolsGrid();
-      initThemePreference();
-    });
+/* ---------- SEARCH (header + hero) : jumps to matching tool ---------- */
+const toolMap = {
+  'pdf':'pdf-page','jpg':'pdf-page','convert':'pdf-page',
+  'image':'image-page','compress':'image-page','compressor':'image-page',
+  'text':'text-page','word':'text-page','counter':'text-page',
+  'json':'dev-page','developer':'dev-page','format':'dev-page',
+  'gpa':'student-page','student':'student-page','grade':'student-page',
+  'qr':'gen-page','generator':'gen-page','code':'gen-page'
+};
+function handleSearch(value){
+  const v = value.trim().toLowerCase();
+  if(!v) return;
+  for(const key in toolMap){
+    if(v.includes(key)){ showPage(toolMap[key]); return; }
+  }
+}
+document.getElementById('header-search').addEventListener('keydown', e=>{
+  if(e.key==='Enter') handleSearch(e.target.value);
+});
+document.getElementById('hero-search').addEventListener('keydown', e=>{
+  if(e.key==='Enter') handleSearch(e.target.value);
+});
 
-    function toggleTheme() {
-      const isDark = document.documentElement.getAttribute("data-theme") === "dark";
-      document.documentElement.setAttribute("data-theme", isDark ? "light" : "dark");
-      document.getElementById("themeToggle").innerText = isDark ? "🌙" : "☀️";
-    }
+/* ================= PDF TOOL: JPG -> PDF ================= */
+let pdfImages = [];
+const pdfDrop = document.getElementById('pdf-drop');
+const pdfFileInput = document.getElementById('pdf-file-input');
+pdfDrop.addEventListener('click', ()=> pdfFileInput.click());
+pdfFileInput.addEventListener('change', e=> handlePdfFiles(e.target.files));
+pdfDrop.addEventListener('dragover', e=>{e.preventDefault(); pdfDrop.style.borderColor='var(--blue)';});
+pdfDrop.addEventListener('drop', e=>{
+  e.preventDefault();
+  handlePdfFiles(e.dataTransfer.files);
+});
+function handlePdfFiles(files){
+  const thumbs = document.getElementById('pdf-thumbs');
+  Array.from(files).forEach(file=>{
+    if(!file.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    reader.onload = e=>{
+      pdfImages.push(e.target.result);
+      const img = document.createElement('img');
+      img.src = e.target.result;
+      thumbs.appendChild(img);
+    };
+    reader.readAsDataURL(file);
+  });
+}
+document.getElementById('pdf-clear-btn').addEventListener('click', ()=>{
+  pdfImages = [];
+  document.getElementById('pdf-thumbs').innerHTML='';
+  document.getElementById('pdf-result').style.display='none';
+});
+document.getElementById('pdf-convert-btn').addEventListener('click', async ()=>{
+  const resultBox = document.getElementById('pdf-result');
+  if(pdfImages.length===0){
+    resultBox.style.display='block';
+    resultBox.textContent = 'Please upload at least one image first.';
+    return;
+  }
+  const { jsPDF } = window.jspdf;
+  const pdf = new jsPDF();
+  for(let i=0;i<pdfImages.length;i++){
+    const imgData = pdfImages[i];
+    const img = new Image();
+    await new Promise(res=>{ img.onload = res; img.src = imgData; });
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+    let w = pageWidth - 20, h = (img.height/img.width)*w;
+    if(h > pageHeight-20){ h = pageHeight-20; w = (img.width/img.height)*h; }
+    if(i>0) pdf.addPage();
+    pdf.addImage(imgData, 'JPEG', 10, 10, w, h);
+  }
+  pdf.save('toolify-converted.pdf');
+  resultBox.style.display='block';
+  resultBox.textContent = 'PDF generated and downloaded successfully (' + pdfImages.length + ' page(s)).';
+});
 
-    function initThemePreference() {
-      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-        document.documentElement.setAttribute("data-theme", "dark");
-        document.getElementById("themeToggle").innerText = "☀️";
-      }
-    }
+/* ================= IMAGE TOOL: Compressor ================= */
+let originalImgFile = null, originalImgEl = null;
+const imgDrop = document.getElementById('img-drop');
+const imgFileInput = document.getElementById('img-file-input');
+imgDrop.addEventListener('click', ()=> imgFileInput.click());
+imgFileInput.addEventListener('change', e=> handleImgFile(e.target.files[0]));
+imgDrop.addEventListener('dragover', e=>{e.preventDefault(); imgDrop.style.borderColor='var(--blue)';});
+imgDrop.addEventListener('drop', e=>{ e.preventDefault(); handleImgFile(e.dataTransfer.files[0]); });
 
-    function filterCategory(cat, btn) {
-      currentCategory = cat;
-      document.querySelectorAll(".pill").forEach(p => p.classList.remove("active"));
-      if (btn) btn.classList.add("active");
-      renderToolsGrid();
-    }
+function handleImgFile(file){
+  if(!file || !file.type.startsWith('image/')) return;
+  originalImgFile = file;
+  const reader = new FileReader();
+  reader.onload = e=>{
+    document.getElementById('img-preview').src = e.target.result;
+    document.getElementById('img-preview-wrap').style.display='block';
+    document.getElementById('quality-field').style.display='block';
+    document.getElementById('img-actions').style.display='flex';
+    document.getElementById('img-download-btn').style.display='none';
+    document.getElementById('img-result').style.display='none';
+    originalImgEl = new Image();
+    originalImgEl.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+document.getElementById('quality-range').addEventListener('input', e=>{
+  document.getElementById('quality-val').textContent = e.target.value;
+});
+let compressedDataUrl = null;
+document.getElementById('img-compress-btn').addEventListener('click', ()=>{
+  if(!originalImgEl){ return; }
+  const quality = document.getElementById('quality-range').value / 100;
+  const doCompress = ()=>{
+    const canvas = document.createElement('canvas');
+    canvas.width = originalImgEl.naturalWidth;
+    canvas.height = originalImgEl.naturalHeight;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(originalImgEl, 0, 0);
+    compressedDataUrl = canvas.toDataURL('image/jpeg', quality);
+    const originalSize = originalImgFile.size;
+    const compressedSize = Math.round((compressedDataUrl.length * 3/4));
+    const reduction = Math.max(0, Math.round((1 - compressedSize/originalSize)*100));
+    const resultBox = document.getElementById('img-result');
+    resultBox.style.display='block';
+    resultBox.textContent = 'Original: ' + (originalSize/1024).toFixed(1) + ' KB  →  Compressed: ' + (compressedSize/1024).toFixed(1) + ' KB  (' + reduction + '% smaller)';
+    document.getElementById('img-download-btn').style.display='inline-block';
+  };
+  if(originalImgEl.complete) doCompress();
+  else originalImgEl.onload = doCompress;
+});
+document.getElementById('img-download-btn').addEventListener('click', ()=>{
+  if(!compressedDataUrl) return;
+  const a = document.createElement('a');
+  a.href = compressedDataUrl;
+  a.download = 'compressed.jpg';
+  a.click();
+});
 
-    function renderToolsGrid() {
-      const query = document.getElementById("searchInput").value.toLowerCase().trim();
-      const grid = document.getElementById("toolsGrid");
+/* ================= TEXT TOOL: Word Counter ================= */
+const wordInput = document.getElementById('word-input');
+function updateWordStats(){
+  const text = wordInput.value;
+  const words = text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
+  const chars = text.length;
+  const sentences = text.trim() === '' ? 0 : (text.match(/[.!?]+/g) || []).length;
+  const minutes = Math.max(1, Math.round(words/200));
+  document.getElementById('wc-words').textContent = words;
+  document.getElementById('wc-chars').textContent = chars;
+  document.getElementById('wc-sentences').textContent = sentences;
+  document.getElementById('wc-time').textContent = text.trim()==='' ? 0 : minutes;
+}
+wordInput.addEventListener('input', updateWordStats);
+document.getElementById('text-upper').addEventListener('click', ()=>{ wordInput.value = wordInput.value.toUpperCase(); updateWordStats(); });
+document.getElementById('text-lower').addEventListener('click', ()=>{ wordInput.value = wordInput.value.toLowerCase(); updateWordStats(); });
+document.getElementById('text-title').addEventListener('click', ()=>{
+  wordInput.value = wordInput.value.replace(/\w\S*/g, t=> t.charAt(0).toUpperCase()+t.substr(1).toLowerCase());
+  updateWordStats();
+});
+document.getElementById('text-clear').addEventListener('click', ()=>{ wordInput.value=''; updateWordStats(); });
 
-      const filtered = TOOL_DATABASE.filter(t => {
-        const matchesCat = (currentCategory === 'all' || t.cat === currentCategory);
-        const matchesQuery = t.name.toLowerCase().includes(query) || t.desc.toLowerCase().includes(query);
-        return matchesCat && matchesQuery;
-      });
+/* ================= DEVELOPER TOOL: JSON Formatter ================= */
+document.getElementById('json-format-btn').addEventListener('click', ()=>{
+  const status = document.getElementById('json-status');
+  try{
+    const parsed = JSON.parse(document.getElementById('json-input').value);
+    document.getElementById('json-output').value = JSON.stringify(parsed, null, 2);
+    status.style.display='block';
+    status.textContent = '✔ Valid JSON — formatted successfully.';
+  }catch(err){
+    status.style.display='block';
+    status.textContent = '✘ Invalid JSON: ' + err.message;
+    document.getElementById('json-output').value = '';
+  }
+});
+document.getElementById('json-minify-btn').addEventListener('click', ()=>{
+  const status = document.getElementById('json-status');
+  try{
+    const parsed = JSON.parse(document.getElementById('json-input').value);
+    document.getElementById('json-output').value = JSON.stringify(parsed);
+    status.style.display='block';
+    status.textContent = '✔ Valid JSON — minified successfully.';
+  }catch(err){
+    status.style.display='block';
+    status.textContent = '✘ Invalid JSON: ' + err.message;
+    document.getElementById('json-output').value = '';
+  }
+});
+document.getElementById('json-clear-btn').addEventListener('click', ()=>{
+  document.getElementById('json-input').value='';
+  document.getElementById('json-output').value='';
+  document.getElementById('json-status').style.display='none';
+});
 
-      if (filtered.length === 0) {
-        grid.innerHTML = `<p style="grid-column: 1/-1; color: var(--text-muted); text-align: center; padding: 2rem;">No matching tools found for "${query}".</p>`;
-        return;
-      }
+/* ================= STUDENT TOOL: GPA Calculator ================= */
+const gradePoints = {'A':4.0,'A-':3.7,'B+':3.3,'B':3.0,'B-':2.7,'C+':2.3,'C':2.0,'C-':1.7,'D':1.0,'F':0.0};
+const gpaRows = document.getElementById('gpa-rows');
+function addGpaRow(courseName, credit){
+  const row = document.createElement('div');
+  row.className = 'gpa-row';
+  row.innerHTML = `
+    <input type="text" placeholder="Course name" value="${courseName||''}">
+    <select>${Object.keys(gradePoints).map(g=>`<option value="${g}">${g}</option>`).join('')}</select>
+    <input type="number" placeholder="Credits" min="0" step="0.5" value="${credit||3}">
+    <button class="remove-row" title="Remove">×</button>
+  `;
+  row.querySelector('.remove-row').addEventListener('click', ()=> row.remove());
+  gpaRows.appendChild(row);
+}
+addGpaRow('Course 1', 3);
+addGpaRow('Course 2', 3);
+document.getElementById('gpa-add-row').addEventListener('click', ()=> addGpaRow('', 3));
+document.getElementById('gpa-calc-btn').addEventListener('click', ()=>{
+  const rows = gpaRows.querySelectorAll('.gpa-row');
+  let totalPoints = 0, totalCredits = 0;
+  rows.forEach(row=>{
+    const grade = row.querySelector('select').value;
+    const credit = parseFloat(row.querySelectorAll('input')[1].value) || 0;
+    totalPoints += gradePoints[grade] * credit;
+    totalCredits += credit;
+  });
+  const resultBox = document.getElementById('gpa-result');
+  resultBox.style.display='block';
+  if(totalCredits===0){
+    resultBox.textContent = 'Please enter at least one course with credit hours.';
+  }else{
+    const gpa = (totalPoints/totalCredits).toFixed(2);
+    resultBox.textContent = 'Your GPA is ' + gpa + ' / 4.0  (Total Credits: ' + totalCredits + ')';
+  }
+});
 
-      grid.innerHTML = filtered.map(t => `
-        <div class="tool-card" onclick="launchToolStudio('${t.id}')">
-          <div class="tool-card-head">
-            <div class="tool-icon-box">${t.icon}</div>
-            <div class="tool-card-title">${t.name}</div>
-          </div>
-          <div class="tool-card-desc">${t.desc}</div>
-          <span class="tool-card-badge">${t.cat}</span>
-        </div>
-      `).join("");
-    }
-
-    function closeWorkspace() {
-      document.getElementById("workspace").style.display = "none";
-    }
-
-    /* --------------------------------------------------------------------------
-       REAL WORKING JAVASCRIPT TOOL STUDIO WORKSPACE
-       -------------------------------------------------------------------------- */
-    function launchToolStudio(toolId) {
-      const ws = document.getElementById("workspace");
-      const body = document.getElementById("workspaceBody");
-      ws.style.display = "block";
-      ws.scrollIntoView({ behavior: 'smooth' });
-
-      switch(toolId) {
-        case "gpa-calc":
-          body.innerHTML = `
-            <h2 style="font-family:var(--font-head); margin-bottom:0.5rem;">🎓 GPA Calculator</h2>
-            <div class="form-group"><label>Grades (e.g. 4.0, 3.7, 3.3, 3.0):</label><input type="text" id="gpa-g" class="form-control" value="4.0, 3.7, 3.3, 3.0"></div>
-            <div class="form-group"><label>Credits (e.g. 3, 4, 3, 2):</label><input type="text" id="gpa-c" class="form-control" value="3, 4, 3, 2"></div>
-            <button class="btn" onclick="calcGPA()">Calculate GPA</button>
-            <div id="out" class="output-box" style="display:none;"></div>`;
-          break;
-
-        case "percentage-calc":
-          body.innerHTML = `
-            <h2 style="font-family:var(--font-head); margin-bottom:0.5rem;">📊 Percentage Calculator</h2>
-            <div class="form-group"><label>What is <input type="number" id="p1" style="width:90px;" class="form-control" value="15"> % of <input type="number" id="p2" style="width:110px;" class="form-control" value="500"> ?</label></div>
-            <button class="btn" onclick="calcPerc()">Calculate Percentage</button>
-            <div id="out" class="output-box" style="display:none;"></div>`;
-          break;
-
-        case "age-calc":
-          body.innerHTML = `
-            <h2 style="font-family:var(--font-head); margin-bottom:0.5rem;">🎂 Age Calculator</h2>
-            <div class="form-group"><label>Select Date of Birth:</label><input type="date" id="dob" class="form-control"></div>
-            <button class="btn" onclick="calcAge()">Calculate Exact Age</button>
-            <div id="out" class="output-box" style="display:none;"></div>`;
-          break;
-
-        case "word-counter":
-          body.innerHTML = `
-            <h2 style="font-family:var(--font-head); margin-bottom:0.5rem;">🔤 Word & Character Counter</h2>
-            <div class="form-group"><textarea id="wc-input" class="form-control" placeholder="Paste or type assignment text here..." oninput="calcWordCount()"></textarea></div>
-            <div id="wc-out" class="output-box">Words: 0 | Characters: 0 | Sentences: 0 | Paragraphs: 0</div>`;
-          break;
-
-        case "pomodoro":
-          body.innerHTML = `
-            <h2 style="font-family:var(--font-head); margin-bottom:0.5rem;">⏱️ Pomodoro Study Timer</h2>
-            <div style="font-size:3.5rem; font-weight:800; color:var(--primary); text-align:center; font-family:var(--font-head);" id="pomoDisplay">25:00</div>
-            <div style="text-align:center;">
-              <button class="btn" onclick="startPomo()">Start Focus</button>
-              <button class="btn btn-secondary" onclick="pausePomo()">Pause</button>
-              <button class="btn btn-secondary" onclick="resetPomo()">Reset</button>
-            </div>`;
-          break;
-
-        case "pwd-generator":
-          body.innerHTML = `
-            <h2 style="font-family:var(--font-head); margin-bottom:0.5rem;">🔐 Password Generator</h2>
-            <div class="form-group"><label>Length: <span id="pwdLenVal">16</span></label><input type="range" id="pwdLen" min="8" max="32" value="16" class="form-control" oninput="document.getElementById('pwdLenVal').innerText=this.value"></div>
-            <button class="btn" onclick="genPassword()">Generate Password</button>
-            <div class="form-group" style="margin-top:1rem;"><input type="text" id="pwdOut" class="form-control" readonly style="font-family:monospace; text-align:center; font-size:1.1rem;"></div>
-            <button class="btn btn-secondary" onclick="navigator.clipboard.writeText(document.getElementById('pwdOut').value); alert('Copied to clipboard!');">📋 Copy Password</button>`;
-          break;
-
-        case "qr-generator":
-          body.innerHTML = `
-            <h2 style="font-family:var(--font-head); margin-bottom:0.5rem;">📱 QR Code Generator</h2>
-            <div class="form-group"><label>Text or URL for QR Code:</label><input type="text" id="qrText" class="form-control" value="https://allinone.tools"></div>
-            <button class="btn" onclick="genQR()">Generate QR Code</button>
-            <div id="out" class="output-box" style="display:none; text-align:center;"></div>`;
-          break;
-
-        case "study-notes":
-          const savedNote = localStorage.getItem("aio_notes") || "";
-          body.innerHTML = `
-            <h2 style="font-family:var(--font-head); margin-bottom:0.5rem;">📝 Quick Browser Notes (Auto-Saved)</h2>
-            <div class="form-group"><textarea id="notesArea" class="form-control" style="min-height:180px;" oninput="localStorage.setItem('aio_notes', this.value)">${savedNote}</textarea></div>
-            <p style="color:var(--text-muted); font-size:0.8rem;">Auto-saves instantly in your local browser memory.</p>`;
-          break;
-
-        case "case-converter":
-          body.innerHTML = `
-            <h2 style="font-family:var(--font-head); margin-bottom:0.5rem;">🔠 Text Case Converter</h2>
-            <div class="form-group"><textarea id="ccIn" class="form-control" placeholder="Type text here..."></textarea></div>
-            <button class="btn" onclick="convertCase('upper')">UPPERCASE</button>
-            <button class="btn" onclick="convertCase('lower')">lowercase</button>
-            <button class="btn" onclick="convertCase('title')">Title Case</button>
-            <div id="out" class="output-box" style="display:none;"></div>`;
-          break;
-
-        case "base64-tool":
-          body.innerHTML = `
-            <h2 style="font-family:var(--font-head); margin-bottom:0.5rem;">🔤 Base64 Encoder / Decoder</h2>
-            <div class="form-group"><textarea id="b64In" class="form-control" placeholder="Type plain text or base64 string..."></textarea></div>
-            <button class="btn" onclick="execBase64(true)">Encode to Base64</button>
-            <button class="btn btn-secondary" onclick="execBase64(false)">Decode Base64</button>
-            <div id="out" class="output-box" style="display:none;"></div>`;
-          break;
-
-        case "json-formatter":
-          body.innerHTML = `
-            <h2 style="font-family:var(--font-head); margin-bottom:0.5rem;">💻 JSON Formatter & Validator</h2>
-            <div class="form-group"><textarea id="jsonIn" class="form-control" placeholder="Paste unformatted JSON here..."></textarea></div>
-            <button class="btn" onclick="execJSON(2)">Format / Beautify
+/* ================= GENERATORS: QR Code ================= */
+let qrInstance = null;
+document.getElementById('qr-generate-btn').addEventListener('click', ()=>{
+  const value = document.getElementById('qr-input').value.trim();
+  const wrap = document.getElementById('qr-canvas-wrap');
+  wrap.innerHTML = '';
+  if(!value) return;
+  qrInstance = new QRCode(wrap, {
+    text: value,
+    width: 200,
+    height: 200,
+    colorDark: "#0f172a",
+    colorLight: "#ffffff",
+    correctLevel: QRCode.CorrectLevel.H
+  });
+  document.getElementById('qr-download-btn').style.display = 'inline-block';
+});
+document.getElementById('qr-download-btn').addEventListener('click', ()=>{
+  const wrap = document.getElementById('qr-canvas-wrap');
+  const canvas = wrap.querySelector('canvas');
+  if(!canvas) return;
+  const a = document.createElement('a');
+  a.href = canvas.toDataURL('image/png');
+  a.download = 'qrcode.png';
+  a.click();
+});
+</script>
+</body>
+</html>
