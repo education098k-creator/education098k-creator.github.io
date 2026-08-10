@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ToolNest - All the tools you need, in one place.</title>
+  <meta name="description" content="Free online calculators, PDF utilities, image editors, text converters, and developer tools. Fast, private, browser-based tools with zero installation.">
+  
+  <style>
+    /* ==========================================================================
+       ToolNest Design System - Clean, Trustworthy Indigo Visual Identity
+       ========================================================================== */
+    :root {
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --primary-light: #eef2ff;
+      --bg-main: #f8fafc;
+      --bg-card: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --radius: 12px;
+      --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      --ad-bg: #f1f5f9;
+    }
+
+    [data-theme="dark"] {
+      --primary: #6366f1;
+      --primary-hover: #818cf8;
+      --primary-light: rgba(99, 102, 241, 0.15);
+      --bg-main: #0f172a;
+      --bg-card: #1e293b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #334155;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+      --ad-bg: #1e293b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    /* Header & Navigation */
+    .site-header {
+      background-color: var(--bg-card);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      transition: background-color 0.3s ease;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--primary);
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .nav-link {
+      color: var(--text-main);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--primary);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .btn-icon {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 1.1rem;
+    }
+
+    .btn-icon:hover {
+      background-color: var(--primary-light);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-main);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 3.5rem 0 2.5rem;
+      text-align: center;
+      background: linear-gradient(180deg, var(--primary-light) 0%, rgba(255,255,255,0) 100%);
+    }
+
+    .hero h1 {
+      font-size: 2.75rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 700px;
+      margin: 0 auto 2rem;
+    }
+
+    /* Global Search Box */
+    .search-wrapper {
+      max-width: 650px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .search-input-group {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-input-group input {
+      width: 100%;
+      padding: 1.1rem 1.25rem 1.1rem 3.25rem;
+      font-size: 1.05rem;
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius);
+      background-color: var(--bg-card);
+      color: var(--text-main);
+      box-shadow: var(--shadow-md);
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .search-input-group input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 1.1rem;
+      color: var(--text-muted);
+      font-size: 1.25rem;
+      pointer-events: none;
+    }
+
+    .search-results-dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      margin-top: 0.5rem;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      max-height: 380px;
+      overflow-y: auto;
+      z-index: 99;
+      display: none;
+    }
+
+    .search-results-dropdown.active {
+      display: block;
+    }
+
+    .search-result-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.85rem 1.25rem;
+      text-decoration: none;
+      color: var(--text-main);
+      border-bottom: 1px solid var(--border-color);
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .search-result-item:hover {
+      background-color: var(--primary-light);
+    }
+
+    /* Tool Grid & Cards */
+    .section-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin: 2.5rem 0 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .tool-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary);
+    }
+
+    .tool-card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+    }
+
+    .tool-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background-color: var(--primary-light);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.35rem;
+    }
+
+    .fav-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 1.2rem;
+      padding: 0.2rem;
+      transition: var(--transition);
+    }
+
+    .fav-btn.active, .fav-btn:hover {
+      color: #f59e0b;
+    }
+
+    .tool-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .tool-desc {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      flex-grow: 1;
+      margin-bottom: 1rem;
+    }
+
+    .tool-category-badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--primary);
+      background-color: var(--primary-light);
+      padding: 0.25rem 0.6rem;
+      border-radius: 20px;
+      align-self: flex-start;
+    }
+
+    /* Category Filter Pills */
+    .filter-pills {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+      scrollbar-width: thin;
+    }
+
+    .pill {
+      padding: 0.5rem 1.1rem;
+      border-radius: 30px;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: var(--transition);
+    }
+
+    .pill.active, .pill:hover {
+      background-color: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    /* Interactive Workspace UI */
+    .tool-workspace {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin: 1.5rem 0 2.5rem;
+      box-shadow: var(--shadow-md);
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .form-control:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+    }
+
+    textarea.form-control {
+      min-height: 140px;
+      resize: vertical;
+      font-family: monospace;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--border-color);
+    }
+
+    .tool-output {
+      margin-top: 1.5rem;
+      padding: 1.25rem;
+      background-color: var(--bg-main);
+      border: 1px dashed var(--border-color);
+      border-radius: 8px;
+      position: relative;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 1rem;
+    }
+
+    .stat-card {
+      background-color: var(--bg-card);
+      padding: 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    /* Unintrusive Ad Containers */
+    .ad-banner {
+      background-color: var(--ad-bg);
+      border: 1px dashed var(--border-color);
+      border-radius: var(--radius);
+      padding: 1rem;
+      text-align: center;
+      margin: 2rem 0;
+      min-height: 90px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* Content & SEO Section */
+    .content-section {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .content-section h2 {
+      font-size: 1.4rem;
+      margin: 1.25rem 0 0.75rem;
+    }
+
+    .content-section p, .content-section ul {
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    /* Footer */
+    .site-footer {
+      background-color: var(--bg-card);
+      border-top: 1px solid var(--border-color);
+      margin-top: auto;
+      padding: 3rem 0 1.5rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-col h4 {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+
+    .copyright {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2rem; }
+      .nav-menu {
+        display: none;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background-color: var(--bg-card);
+        flex-direction: column;
+        padding: 1.5rem;
+        border-bottom: 1px solid var(--border-color);
+        box-shadow: var(--shadow-lg);
+      }
+      .nav-menu.active { display: flex; }
+      .hamburger { display: block; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="logo" onclick="openHome()">
+        <span style="font-size:1.8rem;">🛠️</span> ToolNest
+      </div>
+      <ul class="nav-menu" id="nav-menu">
+        <li><a class="nav-link active" onclick="openHome()">Home</a></li>
+        <li><a class="nav-link" onclick="scrollToSection('all-tools-section')">All Tools</a></li>
+        <li><a class="nav-link" onclick="scrollToSection('categories-section')">Categories</a></li>
+        <li><a class="nav-link" onclick="scrollToSection('seo-content')">About</a></li>
+      </ul>
+      <div class="header-actions">
+        <button class="btn-icon" id="theme-toggle" title="Toggle Theme">🌙</button>
+        <button class="hamburger" id="hamburger">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1>Free Online Tools for Everyone</h1>
+      <p>Calculators, PDF tools, image tools, text tools, student tools, developer utilities and much more — all in one place.</p>
+      
+      <!-- Search System -->
+      <div class="search-wrapper">
+        <div class="search-input-group">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="global-search" placeholder="Search for a tool (e.g. Age Calculator, PDF, JSON, Word Counter)..." autocomplete="off">
+        </div>
+        <div id="search-results" class="search-results-dropdown"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Application Area -->
+  <main class="container">
+
+    <!-- Active Tool Interactive Workspace -->
+    <div id="active-tool-container" style="display:none;"></div>
+
+    <!-- Top Advertisement Slot -->
+    <div class="ad-banner" aria-label="Advertisement">
+      <span>ADVERTISEMENT AREA</span>
+    </div>
+
+    <!-- Favorites Section -->
+    <section id="favorites-section" style="display:none;">
+      <h2 class="section-title">⭐ My Favorites</h2>
+      <div class="tool-grid" id="favorites-grid"></div>
+    </section>
+
+    <!-- Recently Used Section -->
+    <section id="recents-section" style="display:none;">
+      <h2 class="section-title">🕒 Recently Used Tools</h2>
+      <div class="tool-grid" id="recents-grid"></div>
+    </section>
+
+    <!-- All Tools Filter Directory -->
+    <section id="all-tools-section">
+      <h2 class="section-title">🛠️ Utility Tools Directory</h2>
+      
+      <div class="filter-pills">
+        <button class="pill active" onclick="filterCategory('all', this)">All Tools</button>
+        <button class="pill" onclick="filterCategory('student', this)">Students</button>
+        <button class="pill" onclick="filterCategory('calculator', this)">Calculators</button>
+        <button class="pill" onclick="filterCategory('text', this)">Text Tools</button>
+        <button class="pill" onclick="filterCategory('image', this)">Image Tools</button>
+        <button class="pill" onclick="filterCategory('developer', this)">Developer</button>
+        <button class="pill" onclick="filterCategory('security', this)">Security</button>
+      </div>
+
+      <div class="tool-grid" id="main-tools-grid"></div>
+    </section>
+
+    <!-- Tool Categories Grid -->
+    <section id="categories-section">
+      <h2 class="section-title">📂 Browse by Category</h2>
+      <div class="tool-grid">
+        <div class="tool-card" onclick="filterCategory('student')">
+          <div class="tool-icon">📚</div>
+          <div class="tool-title" style="margin-top:0.75rem;">Student & Academic Tools</div>
+          <div class="tool-desc">GPA, percentage, age, grade calculators & word counters.</div>
+        </div>
+        <div class="tool-card" onclick="filterCategory('calculator')">
+          <div class="tool-icon">🧮</div>
+          <div class="tool-title" style="margin-top:0.75rem;">Calculators</div>
+          <div class="tool-desc">BMI, EMI, loan, interest, percentage & difference tools.</div>
+        </div>
+        <div class="tool-card" onclick="filterCategory('developer')">
+          <div class="tool-icon">💻</div>
+          <div class="tool-title" style="margin-top:0.75rem;">Developer Utilities</div>
+          <div class="tool-desc">JSON formatters, Base64, UUID, minifiers & code tools.</div>
+        </div>
+        <div class="tool-card" onclick="filterCategory('security')">
+          <div class="tool-icon">🔐</div>
+          <div class="tool-title" style="margin-top:0.75rem;">Security & Privacy</div>
+          <div class="tool-desc">Password generators, strength checkers & cryptographic hashes.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Middle Advertisement Slot -->
+    <div class="ad-banner" aria-label="Advertisement">
+      <span>ADVERTISEMENT AREA</span>
+    </div>
+
+    <!-- SEO & Explanatory Section -->
+    <article class="content-section" id="seo-content">
+      <h2>Why Choose ToolNest for Your Online Utilities?</h2>
+      <p>ToolNest is designed to provide ultra-fast, modern, browser-first tools for students, software engineers, digital creators, teachers, and business professionals. We believe daily online tasks should not require downloading bulky software or uploading confidential files to remote servers.</p>
+      
+      <h2>100% Client-Side Privacy Guarantee</h2>
+      <p>Your privacy is paramount. Tools like our Image Compressor, JSON Validator, Password Generator, and Base64 Converters process data directly inside your web browser using HTML5 Web APIs. No files or strings are uploaded to external servers.</p>
+    </article>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="logo" onclick="openHome()" style="margin-bottom:0.75rem;">🛠️ ToolNest</div>
+          <p style="color:var(--text-muted); font-size:0.9rem;">All the tools you need, in one place. Fast, privacy-focused client-side web utility platform.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a onclick="openHome()">Home</a></li>
+            <li><a onclick="scrollToSection('all-tools-section')">All Tools</a></li>
+            <li><a onclick="scrollToSection('categories-section')">Categories</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Privacy & Legal</h4>
+          <ul class="footer-links">
+            <li><a onclick="alert('Privacy Policy: All processing happens 100% locally in your browser.')">Privacy Policy</a></li>
+            <li><a onclick="alert('Terms of Service: Free utility platform for educational and professional use.')">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        © 2026 ToolNest. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Embedded JavaScript Application Logic -->
+  <script>
+    /* Tool Database */
+    const TOOLNEST_DATABASE = [
+      { id: "age-calculator", name: "Age Calculator", category: "student", icon: "🎂", desc: "Calculate exact age in years, months, days, and next birthday." },
+      { id: "word-counter", name: "Word Counter", category: "text", icon: "📝", desc: "Count words, characters, sentences, paragraphs, and reading time." },
+      { id: "percentage-calculator", name: "Percentage Calculator", category: "calculator", icon: "📊", desc: "Calculate percentage values, percentage changes, and fractions." },
+      { id: "password-generator", name: "Password Generator", category: "security", icon: "🔐", desc: "Generate secure, high-entropy cryptographic passwords." },
+      { id: "json-formatter", name: "JSON Formatter & Validator", category: "developer", icon: "💻", desc: "Validate, beautify, and minify JSON data structures instantly." },
+      { id: "base64-encoder", name: "Base64 Encoder / Decoder", category: "developer", icon: "🔤", desc: "Encode text into Base64 strings or decode back to plain text." },
+      { id: "bmi-calculator", name: "BMI Calculator", category: "calculator", icon: "⚖️", desc: "Calculate Body Mass Index and understand body weight status." },
+      { id: "emi-calculator", name: "EMI Loan Calculator", category: "calculator", icon: "🏦", desc: "Compute equal monthly installments and total loan interest." },
+      { id: "image-compressor", name: "Client Image Compressor", category: "image", icon: "🖼️", desc: "Compress JPEG, PNG, and WebP images locally in browser." },
+      { id: "uuid-generator", name: "UUID v4 Generator", category: "developer", icon: "🆔", desc: "Generate RFC-compliant unique identification UUID strings." }
+    ];
+
+    let currentCategory = 'all';
+
+    document.addEventListener("DOMContentLoaded", () => {
+      initTheme();
+      initNavigation();
+      initGlobalSearch();
+      renderFavorites();
+      renderRecentlyUsed();
+      renderMainToolsGrid();
+    });
+
+    /* Theme Switcher */
+    function initTheme() {
+      const toggleBtn = document.getElementById("theme-toggle");
+      const savedTheme = localStorage.getItem("toolnest_theme") || 
+        (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      
+      document.documentElement.setAttribute("data-theme", savedTheme);
+      if (toggleBtn) {
+        toggleBtn.innerHTML = savedTheme === "dark" ? "☀️" : "🌙";
+        toggleBtn.addEventListener("click", () => {
+          const current = document.documentElement.getAttribute("data-theme");
+          const next = current === "dark" ? "light" : "dark";
+          document.documentElement.setAttribute("data-theme", next);
+          localStorage.setItem("toolnest_theme", next);
+          toggleBtn.innerHTML = next === "dark" ? "☀️" : "🌙";
+        });
+      }
+    }
+
+    function initNavigation() {
+      const hamburger = document.getElementById("hamburger");
+      const navMenu = document.getElementById("nav-menu");
+      if (hamburger && navMenu) {
+        hamburger.addEventListener("click", () => navMenu.classList.toggle("active"));
+      }
+    }
+
+    function scrollToSection(id) {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function openHome() {
+      document.getElementById("active-tool-container").style.display = "none";
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* Global Search Engine */
+    function initGlobalSearch() {
+      const searchInput = document.getElementById("global-search");
+      const resultsDropdown = document.getElementById("search-results");
+
+      searchInput.addEventListener("input", (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        if (query.length < 1) {
+          resultsDropdown.classList.remove("active");
+          return;
+        }
+
+        const matches = TOOLNEST_DATABASE.filter(tool => 
+          tool.name.toLowerCase().includes(query) || 
+          tool.category.toLowerCase().includes(query) ||
+          tool.desc.toLowerCase().includes(query)
+        );
+
+        if (matches.length === 0) {
+          resultsDropdown.innerHTML = `<div style="padding: 1rem; color: var(--text-muted);">No tools found.</div>`;
+        } else {
+          resultsDropdown.innerHTML = matches.map(tool => `
+            <div class="search-result-item" onclick="launchTool('${tool.id}')">
+              <div>
+                <strong>${tool.icon} ${tool.name}</strong>
+                <div style="font-size:0.75rem; color: var(--text-muted);">${tool.desc}</div>
+              </div>
+              <span class="tool-category-badge">${tool.category}</span>
+            </div>
+          `).join("");
+        }
+        resultsDropdown.classList.add("active");
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!searchInput.contains(e.target) && !resultsDropdown.contains(e.target)) {
+          resultsDropdown.classList.remove("active");
+        }
+      });
+    }
+
+    /* LocalStorage State (Favorites & Recents) */
+    function toggleFavorite(toolId, event) {
+      if (event) event.stopPropagation();
+      let favs = JSON.parse(localStorage.getItem("toolnest_favs") || "[]");
+      if (favs.includes(toolId)) {
+        favs = favs.filter(id => id !== toolId);
+      } else {
+        favs.push(toolId);
+      }
+      localStorage.setItem("toolnest_favs", JSON.stringify(favs));
+      renderFavorites();
+      renderMainToolsGrid();
+    }
+
+    function recordRecentTool(toolId) {
+      let recents = JSON.parse(localStorage.getItem("toolnest_recents") || "[]");
+      recents = recents.filter(id => id !== toolId);
+      recents.unshift(toolId);
+      if (recents.length > 6) recents.pop();
+      localStorage.setItem("toolnest_recents", JSON.stringify(recents));
+      renderRecentlyUsed();
+    }
+
+    function renderFavorites() {
+      const container = document.getElementById("favorites-grid");
+      const section = document.getElementById("favorites-section");
+      const favs = JSON.parse(localStorage.getItem("toolnest_favs") || "[]");
+      
+      if (favs.length === 0) {
+        section.style.display = "none";
+        return;
+      }
+      section.style.display = "block";
+      const favTools = TOOLNEST_DATABASE.filter(t => favs.includes(t.id));
+      container.innerHTML = favTools.map(t => createToolCardHTML(t)).join("");
+    }
+
+    function renderRecentlyUsed() {
+      const container = document.getElementById("recents-grid");
+      const section = document.getElementById("recents-section");
+      const recents = JSON.parse(localStorage.getItem("toolnest_recents") || "[]");
+      
+      if (recents.length === 0) {
+        section.style.display = "none";
+        return;
+      }
+      section.style.display = "block";
+      const recentTools = recents.map(id => TOOLNEST_DATABASE.find(t => t.id === id)).filter(Boolean);
+      container.innerHTML = recentTools.map(t => createToolCardHTML(t)).join("");
+    }
+
+    function createToolCardHTML(tool) {
+      const favs = JSON.parse(localStorage.getItem("toolnest_favs") || "[]");
+      const isFav = favs.includes(tool.id);
+      return `
+        <div class="tool-card" onclick="launchTool('${tool.id}')">
+          <div class="tool-card-header">
+            <div class="tool-icon">${tool.icon}</div>
+            <button class="fav-btn ${isFav ? 'active' : ''}" onclick="toggleFavorite('${tool.id}', event)">★</button>
+          </div>
+          <div class="tool-title">${tool.name}</div>
+          <div class="tool-desc">${tool.desc}</div>
+          <span class="tool-category-badge">${tool.category}</span>
+        </div>
+      `;
+    }
+
+    function filterCategory(cat, btn) {
+      currentCategory = cat;
+      document.querySelectorAll(".pill").forEach(p => p.classList.remove("active"));
+      if (btn) btn.classList.add("active");
+      renderMainToolsGrid();
+      scrollToSection('all-tools-section');
+    }
+
+    function renderMainToolsGrid() {
+      const grid = document.getElementById("main-tools-grid");
+      const filtered = TOOLNEST_DATABASE.filter(t => currentCategory === 'all' || t.category === currentCategory);
+      grid.innerHTML = filtered.map(t => createToolCardHTML(t)).join("");
+    }
+
+    /* Tool Launcher Engine */
+    function launchTool(toolId) {
+      recordRecentTool(toolId);
+      document.getElementById("search-results").classList.remove("active");
+      const container = document.getElementById("active-tool-container");
+      container.style.display = "block";
+      
+      renderToolWorkspace(toolId, container);
+      container.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function renderToolWorkspace(toolId, container) {
+      switch (toolId) {
+        case "age-calculator":
+          container.innerHTML = `
+            <div class="tool-workspace">
+              <h2>🎂 Age Calculator</h2>
+              <p style="color:var(--text-muted); margin-bottom:1rem;">Calculate your exact age in years, months, and days from your date of birth.</p>
+              <div class="form-group">
+                <label for="dob">Select Date of Birth:</label>
+                <input type="date" id="dob" class="form-control">
+              </div>
+              <button class="btn btn-primary" onclick="execAgeCalc()">Calculate Age</button>
+              <div id="age-result" class="tool-output" style="display:none; margin-top:1.5rem;"></div>
+            </div>`;
+          break;
+
+        case "word-counter":
+          container.innerHTML = `
+            <div class="tool-workspace">
+              <h2>📝 Word & Text Counter</h2>
+              <div class="form-group">
+                <label for="text-input">Type or Paste Your Text Below:</label>
+                <textarea id="text-input" class="form-control" placeholder="Start typing..." oninput="execWordCount()"></textarea>
+              </div>
+              <div class="stat-grid" style="margin-top:1.5rem;">
+                <div class="stat-card"><div class="stat-value" id="val-words">0</div><div class="stat-label">Words</div></div>
+                <div class="stat-card"><div class="stat-value" id="val-chars">0</div><div class="stat-label">Characters</div></div>
+                <div class="stat-card"><div class="stat-value" id="val-sentences">0</div><div class="stat-label">Sentences</div></div>
+                <div class="stat-card"><div class="stat-value" id="val-paras">0</div><div class="stat-label">Paragraphs</div></div>
+              </div>
+            </div>`;
+          break;
+
+        case "password-generator":
+          container.innerHTML = `
+            <div class="tool-workspace">
+              <h2>🔐 Password Generator</h2>
+              <div class="form-group">
+                <label>Password Length: <span id="pwd-len-val">16</span></label>
+                <input type="range" id="pwd-length" min="8" max="64" value="16" class="form-control" oninput="document.getElementById('pwd-len-val').innerText=this.value">
+              </div>
+              <button class="btn btn-primary" onclick="execGeneratePassword()">Generate Password</button>
+              <div class="form-group" style="margin-top:1.5rem;">
+                <input type="text" id="pwd-output" class="form-control" readonly style="font-family:monospace; font-size:1.2rem; text-align:center;">
+              </div>
+              <button class="btn btn-secondary" onclick="navigator.clipboard.writeText(document.getElementById('pwd-output').value); alert('Copied!');">📋 Copy</button>
+            </div>`;
+          break;
+
+        case "json-formatter":
+          container.innerHTML = `
+            <div class="tool-workspace">
+              <h2>💻 JSON Formatter & Validator</h2>
+              <div class="form-group">
+                <textarea id="json-input" class="form-control" placeholder="Paste JSON here..."></textarea>
+              </div>
+              <div class="btn-group">
+                <button class="btn btn-primary" onclick="execFormatJson(2)">Format / Beautify</button>
+                <button class="btn btn-secondary" onclick="execFormatJson(0)">Minify</button>
+              </div>
+            </div>`;
+          break;
+
+        case "bmi-calculator":
+          container.innerHTML = `
+            <div class="tool-workspace">
+              <h2>⚖️ BMI Calculator</h2>
+              <div class="form-group">
+                <label>Height (cm):</label>
+                <input type="number" id="bmi-height" class="form-control" placeholder="e.g. 175">
+              </div>
+              <div class="form-group">
+                <label>Weight (kg):</label>
+                <input type="number" id="bmi-weight" class="form-control" placeholder="e.g. 70">
+              </div>
+              <button class="btn btn-primary" onclick="execBmiCalc()">Calculate BMI</button>
+              <div id="bmi-result" class="tool-output" style="display:none;"></div>
+            </div>`;
+          break;
+
+        case "image-compressor":
+          container.innerHTML = `
+            <div class="tool-workspace">
+              <h2>🖼️ Client Image Compressor</h2>
+              <p style="color:var(--text-muted);">Local browser compression — no server upload needed.</p>
+              <div class="form-group" style="margin-top:1rem;">
+                <input type="file" id="img-upload" accept="image/*" class="form-control">
+              </div>
+              <button class="btn btn-primary" onclick="execCompressImage()">Compress Image</button>
+              <div id="img-preview-area" style="margin-top:1.5rem;"></div>
+            </div>`;
+          break;
+
+        default:
+          container.innerHTML = `<div class="tool-workspace"><h2>${toolId.toUpperCase()} Workspace</h2><p>Tool loaded and active.</p></div>`;
+      }
+    }
+
+    /* Execution Handlers */
+    function execAgeCalc() {
+      const dobVal = document.getElementById("dob").value;
+      if (!dobVal) return alert("Select Date of Birth.");
+      const birthDate = new Date(dobVal);
+      const today = new Date();
+      let years = today.getFullYear() - birthDate.getFullYear();
+      let months = today.getMonth() - birthDate.getMonth();
+      let days = today.getDate() - birthDate.getDate();
+
+      if (days < 0) { months--; days += 30; }
+      if (months < 0) { years--; months += 12; }
+
+      const res = document.getElementById("age-result");
+      res.style.display = "block";
+      res.innerHTML = `<h3>Age: ${years} Years, ${months} Months, ${days} Days</h3>`;
+    }
+
+    function execWordCount() {
+      const text = document.getElementById("text-input").value;
+      document.getElementById("val-words").innerText = text.trim() ? text.trim().split(/\s+/).length : 0;
+      document.getElementById("val-chars").innerText = text.length;
+      document.getElementById("val-sentences").innerText = text.trim() ? text.split(/[.!?]+/).filter(Boolean).length : 0;
+      document.getElementById("val-paras").innerText = text.trim() ? text.split(/\n+/).filter(Boolean).length : 0;
+    }
+
+    function execGeneratePassword() {
+      const len = parseInt(document.getElementById("pwd-length").value);
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
+      let pwd = "";
+      for (let i = 0; i < len; i++) pwd += chars.charAt(Math.floor(Math.random() * chars.length));
+      document.getElementById("pwd-output").value = pwd;
+    }
+
+    function execFormatJson(indent) {
+      const input = document.getElementById("json-input");
+      try {
+        input.value = JSON.stringify(JSON.parse(input.value), null, indent);
+      } catch (err) {
+        alert("Invalid JSON data: " + err.message);
+      }
+    }
+
+    function execBmiCalc() {
+      const h = parseFloat(document.getElementById("bmi-height").value) / 100;
+      const w = parseFloat(document.getElementById("bmi-weight").value);
+      if (!h || !w) return alert("Please enter valid height and weight.");
+      const bmi = (w / (h * h)).toFixed(1);
+      const res = document.getElementById("bmi-result");
+      res.style.display = "block";
+      res.innerHTML = `<h3>Your BMI Score: ${bmi}</h3>`;
+    }
+
+    function execCompressImage() {
+      const fileInput = document.getElementById("img-upload");
+      if (!fileInput.files[0]) return alert("Select an image file.");
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.src = e.target.result;
+        img.onload = () => {
+          const canvas = document.createElement("canvas");
+          canvas.width = img.width;
+          canvas.height = img.height;
+          canvas.getContext("2d").drawImage(img, 0, 0);
+          canvas.toBlob((blob) => {
+            const compressedUrl = URL.createObjectURL(blob);
+            document.getElementById("img-preview-area").innerHTML = `
+              <div class="tool-output">
+                <p>Compressed Size: ${(blob.size / 1024).toFixed(1)} KB</p>
+                <img src="${compressedUrl}" style="max-width:100%; border-radius:8px; margin:1rem 0;">
+                <br>
+                <a href="${compressedUrl}" download="compressed-${file.name}" class="btn btn-primary">Download Image</a>
+              </div>`;
+          }, "image/jpeg", 0.7);
+        };
+      };
+      reader.readAsDataURL(file);
+    }
+  </script>
+</body>
+</html>
