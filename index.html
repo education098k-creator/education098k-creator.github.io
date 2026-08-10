@@ -1,193 +1,517 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>StudentToolNest - 50 Fully Working Tools</title>
+  <title>allinone.tools - Free & Useful Student Utilities</title>
+  <meta name="description" content="All in one - A single destination for all your student, text, calculation, and developer needs. Fast, private, and 100% client-side.">
+  
+  <!-- Google Fonts (Same as allinone.tools aesthetic) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
+    /* ==========================================================================
+       allinone.tools Design System - Glassmorphism & Modern SaaS Aesthetic
+       ========================================================================== */
     :root {
-      --primary: #4f46e5;
-      --primary-hover: #4338ca;
-      --bg: #f8fafc;
+      --primary: #766FDE;
+      --primary-hover: #635cc9;
+      --primary-light: rgba(118, 111, 222, 0.12);
+      --bg: #fafafa;
       --card-bg: #ffffff;
       --text: #0f172a;
       --text-muted: #64748b;
       --border: #e2e8f0;
-      --radius: 12px;
-      --shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+      --radius: 16px;
+      --shadow-sm: 0 2px 4px rgba(0,0,0,0.03);
+      --shadow-md: 0 10px 25px -5px rgba(118, 111, 222, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+      --font-head: 'Bricolage Grotesque', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
     }
 
     [data-theme="dark"] {
-      --primary: #6366f1;
-      --primary-hover: #818cf8;
-      --bg: #0f172a;
-      --card-bg: #1e293b;
+      --primary: #8b85f0;
+      --primary-hover: #a19bf5;
+      --primary-light: rgba(139, 133, 240, 0.18);
+      --bg: #090d16;
+      --card-bg: #131b2e;
       --text: #f8fafc;
       --text-muted: #94a3b8;
-      --border: #334155;
-      --shadow: 0 4px 6px -1px rgba(0,0,0,0.5);
+      --border: #1e293b;
+      --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background-color: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; transition: all 0.3s ease; }
-    .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
 
-    header { background: var(--card-bg); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 50; }
-    .header-in { display: flex; align-items: center; justify-content: space-between; height: 65px; }
-    .logo { font-size: 1.3rem; font-weight: 800; color: var(--primary); text-decoration: none; cursor: pointer; }
-    .theme-btn { background: none; border: 1px solid var(--border); color: var(--text); width: 38px; height: 38px; border-radius: 50%; cursor: pointer; font-size: 1.1rem; }
+    .container { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 1.25rem; }
 
-    .hero { text-align: center; padding: 2.5rem 1rem 1.5rem; background: linear-gradient(180deg, rgba(79,70,229,0.08) 0%, rgba(0,0,0,0) 100%); }
-    .hero h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
-    .hero p { color: var(--text-muted); margin-bottom: 1.5rem; }
+    /* Header Navigation */
+    header {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    [data-theme="dark"] header { background: rgba(19, 27, 46, 0.8); }
 
-    .search-box { max-width: 550px; margin: 0 auto 1.5rem; position: relative; }
-    .search-box input { width: 100%; padding: 0.85rem 1rem 0.85rem 2.5rem; border: 2px solid var(--border); border-radius: var(--radius); background: var(--card-bg); color: var(--text); outline: none; font-size: 1rem; }
-    .search-box input:focus { border-color: var(--primary); }
-    .search-icon { position: absolute; left: 0.85rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
+    .header-in {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+    }
 
-    .pills { display: flex; gap: 0.5rem; overflow-x: auto; padding-bottom: 0.75rem; margin-bottom: 1.5rem; }
-    .pill { padding: 0.4rem 1rem; border-radius: 20px; background: var(--card-bg); border: 1px solid var(--border); color: var(--text); cursor: pointer; white-space: nowrap; font-size: 0.88rem; font-weight: 500; }
-    .pill.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font-head);
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--text);
+      text-decoration: none;
+      cursor: pointer;
+    }
 
-    #workspace { display: none; background: var(--card-bg); border: 2px solid var(--primary); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 2rem; box-shadow: var(--shadow); position: relative; }
-    .close-ws { position: absolute; right: 1rem; top: 1rem; background: none; border: none; font-size: 1.5rem; color: var(--text-muted); cursor: pointer; }
+    .brand-logo-box {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #766FDE 0%, #a855f7 100%);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 12px rgba(118, 111, 222, 0.3);
+    }
 
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; margin-bottom: 3rem; }
-    .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; }
-    .card:hover { transform: translateY(-3px); border-color: var(--primary); box-shadow: var(--shadow); }
-    .card-head { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; }
-    .icon { width: 36px; height: 36px; border-radius: 8px; background: rgba(79,70,229,0.1); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
-    .title { font-weight: 600; font-size: 0.95rem; }
-    .desc { font-size: 0.8rem; color: var(--text-muted); flex-grow: 1; }
+    .theme-toggle {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      transition: all 0.2s;
+    }
+    .theme-toggle:hover { border-color: var(--primary); color: var(--primary); transform: scale(1.05); }
 
-    .form-group { margin-bottom: 1rem; }
-    .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.3rem; }
-    .form-control { width: 100%; padding: 0.6rem 0.8rem; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--text); outline: none; font-size: 0.95rem; }
-    .form-control:focus { border-color: var(--primary); }
-    textarea.form-control { min-height: 100px; resize: vertical; font-family: monospace; }
-    .btn { padding: 0.6rem 1.2rem; border-radius: 6px; border: none; background: var(--primary); color: #fff; font-weight: 600; cursor: pointer; font-size: 0.9rem; margin-right: 0.5rem; margin-top: 0.5rem; }
-    .btn:hover { background: var(--primary-hover); }
-    .btn-sec { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
-    .out-box { margin-top: 1rem; padding: 1rem; background: var(--bg); border: 1px dashed var(--border); border-radius: 6px; font-weight: 600; white-space: pre-wrap; word-break: break-all; }
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 3.5rem 1rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
 
-    footer { background: var(--card-bg); border-top: 1px solid var(--border); padding: 1.5rem 0; text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-top: auto; }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--primary-light);
+      color: var(--primary);
+      padding: 0.35rem 1rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero h1 {
+      font-family: var(--font-head);
+      font-size: 3rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 0.8rem;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, #766FDE 0%, #ec4899 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      max-width: 620px;
+      margin: 0 auto 2rem;
+    }
+
+    /* Instant Search Bar */
+    .search-wrapper {
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .search-box {
+      width: 100%;
+      padding: 1.1rem 1.25rem 1.1rem 3.25rem;
+      font-size: 1.05rem;
+      border: 2px solid var(--border);
+      border-radius: 20px;
+      background: var(--card-bg);
+      color: var(--text);
+      outline: none;
+      box-shadow: var(--shadow-md);
+      transition: all 0.2s;
+    }
+
+    .search-box:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px var(--primary-light);
+    }
+
+    .search-icon-inside {
+      position: absolute;
+      left: 1.25rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 1.2rem;
+      pointer-events: none;
+    }
+
+    /* Category Filter Pills */
+    .filter-pills {
+      display: flex;
+      gap: 0.6rem;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+      margin: 2.5rem 0 1.5rem;
+      scrollbar-width: none;
+    }
+
+    .pill {
+      padding: 0.55rem 1.25rem;
+      border-radius: 30px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .pill.active, .pill:hover {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+      box-shadow: 0 4px 12px rgba(118, 111, 222, 0.3);
+    }
+
+    /* Active Tool Studio / Workspace Drawer */
+    #workspace {
+      display: none;
+      background: var(--card-bg);
+      border: 2px solid var(--primary);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+      box-shadow: var(--shadow-md);
+      position: relative;
+      animation: slideDown 0.3s ease-out;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .close-ws-btn {
+      position: absolute;
+      right: 1.25rem;
+      top: 1.25rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .close-ws-btn:hover { color: #ef4444; border-color: #ef4444; }
+
+    /* Tools Bento Grid */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 4rem;
+    }
+
+    .tool-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--primary);
+      box-shadow: var(--shadow-md);
+    }
+
+    .tool-card-head {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .tool-icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--primary-light);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.35rem;
+      flex-shrink: 0;
+    }
+
+    .tool-card-title {
+      font-family: var(--font-head);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .tool-card-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      flex-grow: 1;
+    }
+
+    .tool-card-badge {
+      align-self: flex-start;
+      margin-top: 1rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+    }
+
+    /* Form Controls Inside Workspace */
+    .form-group { margin-bottom: 1.25rem; }
+    .form-group label { display: block; font-size: 0.9rem; font-weight: 600; margin-bottom: 0.4rem; }
+    .form-control {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      font-size: 0.95rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--bg);
+      color: var(--text);
+      outline: none;
+      transition: all 0.2s;
+    }
+    .form-control:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-light); }
+    textarea.form-control { min-height: 120px; resize: vertical; font-family: monospace; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 10px;
+      border: none;
+      background: var(--primary);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-right: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    .btn:hover { background: var(--primary-hover); transform: translateY(-1px); }
+    .btn-secondary { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
+    .btn-secondary:hover { background: var(--border); }
+
+    .output-box {
+      margin-top: 1.25rem;
+      padding: 1.25rem;
+      background: var(--bg);
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      font-weight: 600;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    footer {
+      background: var(--card-bg);
+      border-top: 1px solid var(--border);
+      padding: 2rem 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-top: auto;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.2rem; }
+      .hero p { font-size: 1rem; }
+      .tools-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
 
+  <!-- Header -->
   <header>
     <div class="container header-in">
-      <div class="logo" onclick="closeWorkspace()">🎓 StudentToolNest (100% Real Working)</div>
-      <button class="theme-btn" id="themeToggle" onclick="toggleTheme()">🌙</button>
+      <div class="brand" onclick="closeWorkspace()">
+        <div class="brand-logo-box">🛠️</div>
+        allinone.tools
+      </div>
+      <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle Light/Dark Theme">🌙</button>
     </div>
   </header>
 
+  <!-- Hero Section -->
   <section class="hero">
     <div class="container">
-      <h1>50 Genuine Student & Academic Tools</h1>
-      <p>Instant client-side output — 100% private, fast, and fully working.</p>
-      
-      <div class="search-box">
-        <span class="search-icon">🔍</span>
-        <input type="text" id="searchInput" placeholder="Search any tool (e.g. GPA, Percentage, Age, Base64, Interest)..." oninput="renderGrid()">
+      <div class="hero-badge">⚡ 100% Free & Client-Side Privacy</div>
+      <h1>All in one destination for <span>all your needs</span></h1>
+      <p>Calculators, converters, text utilities, image tools, study timers, and developer utilities — all running instantly inside your browser.</p>
+
+      <!-- Instant Search Bar -->
+      <div class="search-wrapper">
+        <span class="search-icon-inside">🔍</span>
+        <input type="text" id="searchInput" class="search-box" placeholder="Search any tool (e.g. GPA, Age, Percentage, Word Counter, QR)..." oninput="renderToolsGrid()">
       </div>
     </div>
   </section>
 
+  <!-- Main Section -->
   <main class="container">
+
+    <!-- Active Tool Studio / Workspace Drawer -->
     <div id="workspace">
-      <button class="close-ws" onclick="closeWorkspace()">✕</button>
-      <div id="wsContent"></div>
+      <button class="close-ws-btn" onclick="closeWorkspace()">✕</button>
+      <div id="workspaceBody"></div>
     </div>
 
-    <div class="pills">
-      <button class="pill active" onclick="filterCat('all', this)">All (50)</button>
-      <button class="pill" onclick="filterCat('calc', this)">Math & Calc</button>
-      <button class="pill" onclick="filterCat('study', this)">Study & Notes</button>
-      <button class="pill" onclick="filterCat('text', this)">Text Utilities</button>
-      <button class="pill" onclick="filterCat('unit', this)">Unit Converters</button>
-      <button class="pill" onclick="filterCat('finance', this)">Finance & Money</button>
-      <button class="pill" onclick="filterCat('dev', this)">Developer & Code</button>
+    <!-- Category Filter Pills -->
+    <div class="filter-pills">
+      <button class="pill active" onclick="filterCategory('all', this)">All Tools</button>
+      <button class="pill" onclick="filterCategory('calc', this)">Calculators</button>
+      <button class="pill" onclick="filterCategory('study', this)">Study & Notes</button>
+      <button class="pill" onclick="filterCategory('text', this)">Text Tools</button>
+      <button class="pill" onclick="filterCategory('unit', this)">Converters</button>
+      <button class="pill" onclick="filterCategory('finance', this)">Finance</button>
+      <button class="pill" onclick="filterCategory('dev', this)">Developer</button>
     </div>
 
-    <div class="grid" id="toolsGrid"></div>
+    <!-- Tools Grid -->
+    <div class="tools-grid" id="toolsGrid"></div>
+
   </main>
 
+  <!-- Footer -->
   <footer>
-    © 2026 StudentToolNest. 100% Working Client-Side Student Tools.
+    <div class="container">
+      © 2026 <strong>allinone.tools</strong> — Fast, private, and 100% browser-side utilities.
+    </div>
   </footer>
 
+  <!-- 100% Real Working JavaScript Engine -->
   <script>
-    const TOOLS = [
-      // Calc (1-10)
-      { id: "gpa-calc", name: "GPA Calculator", cat: "calc", icon: "🎓", desc: "Calculate grade point average from credits." },
-      { id: "percentage-calc", name: "Percentage Calculator", cat: "calc", icon: "📊", desc: "Calculate X% of Y and percentage values." },
-      { id: "target-grade", name: "Final Exam Score Needed", cat: "calc", icon: "🎯", desc: "Calculate final score needed for target grade." },
-      { id: "age-calc", name: "Age & Next Birthday", cat: "calc", icon: "🎂", desc: "Calculate age in Y/M/D and days to birthday." },
-      { id: "scientific-calc", name: "Scientific Math Calculator", cat: "calc", icon: "🧮", desc: "Evaluate complex Math expressions." },
-      { id: "fraction-calc", name: "Fraction Math Calculator", cat: "calc", icon: "➗", desc: "Add, subtract, multiply, divide fractions." },
-      { id: "stats-calc", name: "Mean, Median & Mode", cat: "calc", icon: "📈", desc: "Calculate average and median of numbers." },
-      { id: "ratio-calc", name: "Ratio Simplifier", cat: "calc", icon: "⚖️", desc: "Simplify ratios like A:B to lowest terms." },
-      { id: "discount-calc", name: "Discount Calculator", cat: "calc", icon: "🏷️", desc: "Calculate sale price after percentage discount." },
-      { id: "tip-calc", name: "Bill & Tip Splitter", cat: "calc", icon: "🍕", desc: "Split bills and tips equally between friends." },
+    const TOOL_DATABASE = [
+      // Calculators
+      { id: "gpa-calc", name: "GPA Calculator", cat: "calc", icon: "🎓", desc: "Calculate grade point average from course grades and credits." },
+      { id: "percentage-calc", name: "Percentage Calculator", cat: "calc", icon: "📊", desc: "Calculate percentage values and fraction to percentage." },
+      { id: "target-grade", name: "Final Grade Calculator", cat: "calc", icon: "🎯", desc: "Find exact final exam score needed for target grade." },
+      { id: "age-calc", name: "Age & Birthday Calculator", cat: "calc", icon: "🎂", desc: "Exact age in years, months, days and next birthday count." },
+      { id: "scientific-calc", name: "Scientific Math Calculator", cat: "calc", icon: "🧮", desc: "Evaluate mathematical expressions, sqrt, and power." },
+      { id: "fraction-calc", name: "Fraction Calculator", cat: "calc", icon: "➗", desc: "Add, subtract, multiply, and divide fractions." },
 
-      // Study (11-20)
-      { id: "pomodoro", name: "Pomodoro Study Timer", cat: "study", icon: "⏱️", desc: "25-min focus timer with pause & reset." },
-      { id: "stopwatch", name: "Stopwatch & Lap Tracker", cat: "study", icon: "⌛", desc: "Track practice exam time with laps." },
-      { id: "study-notes", name: "Browser Quick Notes", cat: "study", icon: "📝", desc: "Auto-saves study notes in local browser." },
-      { id: "todo-list", name: "Assignment Task Planner", cat: "study", icon: "✅", desc: "Add, mark, and track homework tasks." },
-      { id: "random-picker", name: "Random Name/Topic Picker", cat: "study", icon: "🎲", desc: "Pick a random line or student name." },
-      { id: "lorem-gen", name: "Lorem Ipsum Generator", cat: "study", icon: "📄", desc: "Generate dummy text paragraphs." },
-      { id: "reading-time", name: "Reading Time Estimator", cat: "study", icon: "📖", desc: "Estimate speech or reading duration." },
-      { id: "markdown-prev", name: "Markdown Live Previewer", cat: "study", icon: "🖋️", desc: "Render markdown headers, bold & italic text." },
-      { id: "qr-gen", name: "QR Code Generator", cat: "study", icon: "📱", desc: "Generate QR codes for URLs and text." },
-      { id: "pdf-page-cnt", name: "Word Estimate by Pages", cat: "study", icon: "📚", desc: "Convert document pages to word estimate." },
+      // Study & Productivity
+      { id: "pomodoro", name: "Pomodoro Focus Timer", cat: "study", icon: "⏱️", desc: "25-minute study focus timer with break alerts." },
+      { id: "study-notes", name: "Auto-Save Quick Notes", cat: "study", icon: "📝", desc: "Auto-saving browser notepad in local memory." },
+      { id: "todo-planner", name: "Assignment Task Planner", cat: "study", icon: "✅", desc: "Interactive student task and assignment manager." },
+      { id: "qr-generator", name: "QR Code Generator", cat: "study", icon: "📱", desc: "Generate instant QR codes for links and text." },
+      { id: "reading-time", name: "Reading Time Estimator", cat: "study", icon: "📖", desc: "Estimate speech or reading duration from word count." },
 
-      // Text (21-30)
-      { id: "word-counter", name: "Word & Character Counter", cat: "text", icon: "🔤", desc: "Count words, chars, sentences, paras." },
-      { id: "case-converter", name: "Text Case Converter", cat: "text", icon: "🔠", desc: "UPPERCASE, lowercase, Title Case." },
-      { id: "space-remover", name: "Remove Extra Spaces", cat: "text", icon: "🧹", desc: "Clean up messy spacing in text." },
-      { id: "text-reverser", name: "Text Reverser", cat: "text", icon: "🔄", desc: "Reverse text order or character sequence." },
-      { id: "line-sorter", name: "Alphabetical Line Sorter", cat: "text", icon: "🔤", desc: "Sort reference lists A to Z." },
-      { id: "duplicate-remover", name: "Remove Duplicate Lines", cat: "text", icon: "📋", desc: "Filter unique lines from text." },
-      { id: "character-limit", name: "Social Limit Checker", cat: "text", icon: "📏", desc: "Check Twitter/LinkedIn char limits." },
-      { id: "find-replace", name: "Find & Replace Text", cat: "text", icon: "🔍", desc: "Replace target words across assignment." },
-      { id: "text-cleaner", name: "HTML Tag Stripper", cat: "text", icon: "✂️", desc: "Remove HTML tags from raw text." },
-      { id: "sentence-counter", name: "Paragraph & Line Stats", cat: "text", icon: "📑", desc: "Detailed breakdown of text blocks." },
+      // Text Tools
+      { id: "word-counter", name: "Word & Character Counter", cat: "text", icon: "🔤", desc: "Count words, characters, sentences, and paragraphs." },
+      { id: "case-converter", name: "Text Case Converter", cat: "text", icon: "🔠", desc: "Convert text to UPPERCASE, lowercase, or Title Case." },
+      { id: "space-remover", name: "Remove Extra Spaces", cat: "text", icon: "🧹", desc: "Clean up messy spacing and line breaks in text." },
+      { id: "text-reverser", name: "Text Reverser", cat: "text", icon: "🔄", desc: "Flip text characters or word sequence backwards." },
+      { id: "line-sorter", name: "Alphabetical Line Sorter", cat: "text", icon: "📋", desc: "Sort reference lists or text lines from A to Z." },
+      { id: "duplicate-remover", name: "Remove Duplicate Lines", cat: "text", icon: "✂️", desc: "Filter out repeated lines from text lists." },
 
-      // Unit Converters (31-38)
-      { id: "len-conv", name: "Length Converter", cat: "unit", icon: "📏", desc: "Convert Meters, KM, Miles, Feet, Inches." },
-      { id: "weight-conv", name: "Weight Converter", cat: "unit", icon: "⚖️", desc: "Convert KG, Grams, Pounds, Ounces." },
-      { id: "temp-conv", name: "Temperature Converter", cat: "unit", icon: "🌡️", desc: "Convert Celsius, Fahrenheit, Kelvin." },
-      { id: "data-conv", name: "Data Storage Converter", cat: "unit", icon: "💾", desc: "Convert Bytes, KB, MB, GB, TB." },
-      { id: "time-conv", name: "Time Converter", cat: "unit", icon: "⏰", desc: "Convert Seconds, Mins, Hours, Days." },
-      { id: "speed-conv", name: "Speed Converter", cat: "unit", icon: "🚀", desc: "Convert Km/h, Mph, Meters/sec." },
-      { id: "area-conv", name: "Area Converter", cat: "unit", icon: "📐", desc: "Convert Sq Meters, Sq Feet, Acres." },
-      { id: "number-base", name: "Binary/Hex Base Converter", cat: "unit", icon: "🔢", desc: "Convert Decimal, Binary, Hexadecimal." },
+      // Unit Converters
+      { id: "len-converter", name: "Length Unit Converter", cat: "unit", icon: "📏", desc: "Convert Meters, KM, Feet, Inches, Miles." },
+      { id: "weight-converter", name: "Weight Unit Converter", cat: "unit", icon: "⚖️", desc: "Convert Kilograms, Grams, Pounds, Ounces." },
+      { id: "temp-converter", name: "Temperature Converter", cat: "unit", icon: "🌡️", desc: "Convert Celsius, Fahrenheit, and Kelvin." },
+      { id: "data-converter", name: "Data Storage Converter", cat: "unit", icon: "💾", desc: "Convert Bytes, KB, MB, GB, and TB." },
+      { id: "number-base", name: "Binary & Hex Base Converter", cat: "unit", icon: "🔢", desc: "Convert Decimal, Binary, and Hexadecimal numbers." },
 
-      // Finance (39-44)
-      { id: "simple-interest", name: "Simple Interest Calc", cat: "finance", icon: "💰", desc: "Calculate simple interest on principal." },
-      { id: "compound-interest", name: "Compound Interest Calc", cat: "finance", icon: "📈", desc: "Calculate compounding growth." },
-      { id: "emi-calc", name: "Loan EMI Calculator", cat: "finance", icon: "🏦", desc: "Calculate monthly EMI and total interest." },
-      { id: "gst-calc", name: "GST / Tax Calculator", cat: "finance", icon: "🧾", desc: "Add or remove GST tax percentage." },
-      { id: "salary-calc", name: "Hourly Pay to Monthly", cat: "finance", icon: "💼", desc: "Convert part-time hourly rate to monthly." },
-      { id: "budget-calc", name: "Daily Pocket Budget", cat: "finance", icon: "👛", desc: "Divide allowance into safe daily limit." },
+      // Finance
+      { id: "simple-interest", name: "Simple Interest Calc", cat: "finance", icon: "💰", desc: "Calculate simple interest and total payback." },
+      { id: "compound-interest", name: "Compound Interest Calc", cat: "finance", icon: "📈", desc: "Calculate compounding investment growth." },
+      { id: "loan-emi", name: "Student Loan EMI Calc", cat: "finance", icon: "🏦", desc: "Compute monthly loan EMI and total interest." },
+      { id: "discount-calc", name: "Discount Calculator", cat: "finance", icon: "🏷️", desc: "Calculate final price after student discount." },
 
-      // Developer & Security (45-50)
-      { id: "pwd-gen", name: "Strong Password Generator", cat: "dev", icon: "🔐", desc: "Generate random high-entropy passwords." },
-      { id: "pwd-strength", name: "Password Strength Tester", cat: "dev", icon: "🛡️", desc: "Check score and entropy of password." },
-      { id: "json-format", name: "JSON Formatter & Validator", cat: "dev", icon: "💻", desc: "Beautify or minify JSON string." },
-      { id: "base64-tool", name: "Base64 Encoder / Decoder", cat: "dev", icon: "🔤", desc: "Encode or decode Base64 strings." },
-      { id: "url-tool", name: "URL Encoder / Decoder", cat: "dev", icon: "🔗", desc: "Format URLs for web links." },
-      { id: "img-compress", name: "Client Image Compressor", cat: "dev", icon: "🖼️", desc: "Compress JPEG/PNG image locally." }
+      // Developer Tools
+      { id: "pwd-generator", name: "Strong Password Generator", cat: "dev", icon: "🔐", desc: "Create randomized secure high-entropy passwords." },
+      { id: "json-formatter", name: "JSON Formatter & Validator", cat: "dev", icon: "💻", desc: "Beautify or minify JSON code structures." },
+      { id: "base64-tool", name: "Base64 Encoder / Decoder", cat: "dev", icon: "🔤", desc: "Encode or decode strings into Base64." },
+      { id: "url-encoder", name: "URL Encoder / Decoder", cat: "dev", icon: "🔗", desc: "Format special characters for website URLs." },
+      { id: "img-compressor", name: "Client Image Compressor", cat: "dev", icon: "🖼️", desc: "Compress JPEG/PNG image sizes in browser." }
     ];
 
-    let currentCat = 'all';
+    let currentCategory = 'all';
 
     document.addEventListener("DOMContentLoaded", () => {
-      renderGrid();
-      initTheme();
+      renderToolsGrid();
+      initThemePreference();
     });
 
     function toggleTheme() {
@@ -196,42 +520,43 @@
       document.getElementById("themeToggle").innerText = isDark ? "🌙" : "☀️";
     }
 
-    function initTheme() {
+    function initThemePreference() {
       if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
         document.documentElement.setAttribute("data-theme", "dark");
         document.getElementById("themeToggle").innerText = "☀️";
       }
     }
 
-    function filterCat(cat, btn) {
-      currentCat = cat;
+    function filterCategory(cat, btn) {
+      currentCategory = cat;
       document.querySelectorAll(".pill").forEach(p => p.classList.remove("active"));
       if (btn) btn.classList.add("active");
-      renderGrid();
+      renderToolsGrid();
     }
 
-    function renderGrid() {
+    function renderToolsGrid() {
       const query = document.getElementById("searchInput").value.toLowerCase().trim();
       const grid = document.getElementById("toolsGrid");
 
-      const filtered = TOOLS.filter(t => {
-        const matchCat = (currentCat === 'all' || t.cat === currentCat);
-        const matchQuery = t.name.toLowerCase().includes(query) || t.desc.toLowerCase().includes(query);
-        return matchCat && matchQuery;
+      const filtered = TOOL_DATABASE.filter(t => {
+        const matchesCat = (currentCategory === 'all' || t.cat === currentCategory);
+        const matchesQuery = t.name.toLowerCase().includes(query) || t.desc.toLowerCase().includes(query);
+        return matchesCat && matchesQuery;
       });
 
       if (filtered.length === 0) {
-        grid.innerHTML = `<p style="grid-column:1/-1; color:var(--text-muted);">No tool found matching "${query}".</p>`;
+        grid.innerHTML = `<p style="grid-column: 1/-1; color: var(--text-muted); text-align: center; padding: 2rem;">No matching tools found for "${query}".</p>`;
         return;
       }
 
       grid.innerHTML = filtered.map(t => `
-        <div class="card" onclick="openTool('${t.id}')">
-          <div class="card-head">
-            <div class="icon">${t.icon}</div>
-            <div class="title">${t.name}</div>
+        <div class="tool-card" onclick="launchToolStudio('${t.id}')">
+          <div class="tool-card-head">
+            <div class="tool-icon-box">${t.icon}</div>
+            <div class="tool-card-title">${t.name}</div>
           </div>
-          <div class="desc">${t.desc}</div>
+          <div class="tool-card-desc">${t.desc}</div>
+          <span class="tool-card-badge">${t.cat}</span>
         </div>
       `).join("");
     }
@@ -240,78 +565,105 @@
       document.getElementById("workspace").style.display = "none";
     }
 
-    /* SPECIFIC CUSTOM UI FOR EVERY SINGLE TOOL */
-    function openTool(id) {
+    /* --------------------------------------------------------------------------
+       REAL WORKING JAVASCRIPT TOOL STUDIO WORKSPACE
+       -------------------------------------------------------------------------- */
+    function launchToolStudio(toolId) {
       const ws = document.getElementById("workspace");
-      const content = document.getElementById("wsContent");
+      const body = document.getElementById("workspaceBody");
       ws.style.display = "block";
       ws.scrollIntoView({ behavior: 'smooth' });
 
-      switch(id) {
+      switch(toolId) {
         case "gpa-calc":
-          content.innerHTML = `
-            <h2>🎓 GPA Calculator</h2>
-            <div class="form-group"><label>Grades (comma separated, e.g. 4.0, 3.7, 3.3, 3.0):</label><input type="text" id="g-in" class="form-control" value="4.0, 3.7, 3.3, 3.0"></div>
-            <div class="form-group"><label>Credits (comma separated, e.g. 3, 4, 3, 2):</label><input type="text" id="c-in" class="form-control" value="3, 4, 3, 2"></div>
-            <button class="btn" onclick="execGPA()">Calculate GPA</button>
-            <div id="out" class="out-box" style="display:none;"></div>`;
+          body.innerHTML = `
+            <h2 style="font-family:var(--font-head); margin-bottom:0.5rem;">🎓 GPA Calculator</h2>
+            <div class="form-group"><label>Grades (e.g. 4.0, 3.7, 3.3, 3.0):</label><input type="text" id="gpa-g" class="form-control" value="4.0, 3.7, 3.3, 3.0"></div>
+            <div class="form-group"><label>Credits (e.g. 3, 4, 3, 2):</label><input type="text" id="gpa-c" class="form-control" value="3, 4, 3, 2"></div>
+            <button class="btn" onclick="calcGPA()">Calculate GPA</button>
+            <div id="out" class="output-box" style="display:none;"></div>`;
           break;
 
         case "percentage-calc":
-          content.innerHTML = `
-            <h2>📊 Percentage Calculator</h2>
-            <div class="form-group"><label>What is <input type="number" id="p1" style="width:80px;" value="15"> % of <input type="number" id="p2" style="width:100px;" value="500"> ?</label></div>
-            <button class="btn" onclick="execPerc()">Calculate Percentage</button>
-            <div id="out" class="out-box" style="display:none;"></div>`;
-          break;
-
-        case "target-grade":
-          content.innerHTML = `
-            <h2>🎯 Final Exam Score Needed Calculator</h2>
-            <div class="form-group"><label>Current Grade (%):</label><input type="number" id="tg-curr" class="form-control" value="82"></div>
-            <div class="form-group"><label>Target Grade (%):</label><input type="number" id="tg-target" class="form-control" value="90"></div>
-            <div class="form-group"><label>Final Exam Weight (%):</label><input type="number" id="tg-weight" class="form-control" value="30"></div>
-            <button class="btn" onclick="execTargetGrade()">Calculate Final Score Needed</button>
-            <div id="out" class="out-box" style="display:none;"></div>`;
+          body.innerHTML = `
+            <h2 style="font-family:var(--font-head); margin-bottom:0.5rem;">📊 Percentage Calculator</h2>
+            <div class="form-group"><label>What is <input type="number" id="p1" style="width:90px;" class="form-control" value="15"> % of <input type="number" id="p2" style="width:110px;" class="form-control" value="500"> ?</label></div>
+            <button class="btn" onclick="calcPerc()">Calculate Percentage</button>
+            <div id="out" class="output-box" style="display:none;"></div>`;
           break;
 
         case "age-calc":
-          content.innerHTML = `
-            <h2>🎂 Age Calculator</h2>
-            <div class="form-group"><label>Date of Birth:</label><input type="date" id="dob" class="form-control"></div>
-            <button class="btn" onclick="execAge()">Calculate Age</button>
-            <div id="out" class="out-box" style="display:none;"></div>`;
+          body.innerHTML = `
+            <h2 style="font-family:var(--font-head); margin-bottom:0.5rem;">🎂 Age Calculator</h2>
+            <div class="form-group"><label>Select Date of Birth:</label><input type="date" id="dob" class="form-control"></div>
+            <button class="btn" onclick="calcAge()">Calculate Exact Age</button>
+            <div id="out" class="output-box" style="display:none;"></div>`;
           break;
 
-        case "scientific-calc":
-          content.innerHTML = `
-            <h2>🧮 Scientific Expression Calculator</h2>
-            <div class="form-group"><label>Expression (e.g. Math.sin(Math.PI/2) + Math.sqrt(144) + Math.pow(2,4)):</label><input type="text" id="sci-in" class="form-control" value="Math.sqrt(144) + Math.pow(2,4)"></div>
-            <button class="btn" onclick="execSci()">Evaluate</button>
-            <div id="out" class="out-box" style="display:none;"></div>`;
+        case "word-counter":
+          body.innerHTML = `
+            <h2 style="font-family:var(--font-head); margin-bottom:0.5rem;">🔤 Word & Character Counter</h2>
+            <div class="form-group"><textarea id="wc-input" class="form-control" placeholder="Paste or type assignment text here..." oninput="calcWordCount()"></textarea></div>
+            <div id="wc-out" class="output-box">Words: 0 | Characters: 0 | Sentences: 0 | Paragraphs: 0</div>`;
           break;
 
-        case "fraction-calc":
-          content.innerHTML = `
-            <h2>➗ Fraction Calculator</h2>
-            <div class="form-group">
-              <input type="number" id="n1" style="width:60px;" value="1"> / <input type="number" id="d1" style="width:60px;" value="2">
-              <select id="f-op" style="padding:0.4rem;"><option>+</option><option>-</option><option>*</option><option>/</option></select>
-              <input type="number" id="n2" style="width:60px;" value="1"> / <input type="number" id="d2" style="width:60px;" value="3">
-            </div>
-            <button class="btn" onclick="execFraction()">Calculate Fraction</button>
-            <div id="out" class="out-box" style="display:none;"></div>`;
+        case "pomodoro":
+          body.innerHTML = `
+            <h2 style="font-family:var(--font-head); margin-bottom:0.5rem;">⏱️ Pomodoro Study Timer</h2>
+            <div style="font-size:3.5rem; font-weight:800; color:var(--primary); text-align:center; font-family:var(--font-head);" id="pomoDisplay">25:00</div>
+            <div style="text-align:center;">
+              <button class="btn" onclick="startPomo()">Start Focus</button>
+              <button class="btn btn-secondary" onclick="pausePomo()">Pause</button>
+              <button class="btn btn-secondary" onclick="resetPomo()">Reset</button>
+            </div>`;
           break;
 
-        case "stats-calc":
-          content.innerHTML = `
-            <h2>📈 Mean, Median & Mode Calculator</h2>
-            <div class="form-group"><label>Numbers (comma separated):</label><input type="text" id="st-in" class="form-control" value="12, 15, 22, 15, 30, 45, 12, 15"></div>
-            <button class="btn" onclick="execStats()">Calculate Statistics</button>
-            <div id="out" class="out-box" style="display:none;"></div>`;
+        case "pwd-generator":
+          body.innerHTML = `
+            <h2 style="font-family:var(--font-head); margin-bottom:0.5rem;">🔐 Password Generator</h2>
+            <div class="form-group"><label>Length: <span id="pwdLenVal">16</span></label><input type="range" id="pwdLen" min="8" max="32" value="16" class="form-control" oninput="document.getElementById('pwdLenVal').innerText=this.value"></div>
+            <button class="btn" onclick="genPassword()">Generate Password</button>
+            <div class="form-group" style="margin-top:1rem;"><input type="text" id="pwdOut" class="form-control" readonly style="font-family:monospace; text-align:center; font-size:1.1rem;"></div>
+            <button class="btn btn-secondary" onclick="navigator.clipboard.writeText(document.getElementById('pwdOut').value); alert('Copied to clipboard!');">📋 Copy Password</button>`;
           break;
 
-        case "ratio-calc":
-          content.innerHTML = `
-            <h2>⚖️ Ratio Simplifier</h2>
-            <div class="form-group"><label>Ratio A :
+        case "qr-generator":
+          body.innerHTML = `
+            <h2 style="font-family:var(--font-head); margin-bottom:0.5rem;">📱 QR Code Generator</h2>
+            <div class="form-group"><label>Text or URL for QR Code:</label><input type="text" id="qrText" class="form-control" value="https://allinone.tools"></div>
+            <button class="btn" onclick="genQR()">Generate QR Code</button>
+            <div id="out" class="output-box" style="display:none; text-align:center;"></div>`;
+          break;
+
+        case "study-notes":
+          const savedNote = localStorage.getItem("aio_notes") || "";
+          body.innerHTML = `
+            <h2 style="font-family:var(--font-head); margin-bottom:0.5rem;">📝 Quick Browser Notes (Auto-Saved)</h2>
+            <div class="form-group"><textarea id="notesArea" class="form-control" style="min-height:180px;" oninput="localStorage.setItem('aio_notes', this.value)">${savedNote}</textarea></div>
+            <p style="color:var(--text-muted); font-size:0.8rem;">Auto-saves instantly in your local browser memory.</p>`;
+          break;
+
+        case "case-converter":
+          body.innerHTML = `
+            <h2 style="font-family:var(--font-head); margin-bottom:0.5rem;">🔠 Text Case Converter</h2>
+            <div class="form-group"><textarea id="ccIn" class="form-control" placeholder="Type text here..."></textarea></div>
+            <button class="btn" onclick="convertCase('upper')">UPPERCASE</button>
+            <button class="btn" onclick="convertCase('lower')">lowercase</button>
+            <button class="btn" onclick="convertCase('title')">Title Case</button>
+            <div id="out" class="output-box" style="display:none;"></div>`;
+          break;
+
+        case "base64-tool":
+          body.innerHTML = `
+            <h2 style="font-family:var(--font-head); margin-bottom:0.5rem;">🔤 Base64 Encoder / Decoder</h2>
+            <div class="form-group"><textarea id="b64In" class="form-control" placeholder="Type plain text or base64 string..."></textarea></div>
+            <button class="btn" onclick="execBase64(true)">Encode to Base64</button>
+            <button class="btn btn-secondary" onclick="execBase64(false)">Decode Base64</button>
+            <div id="out" class="output-box" style="display:none;"></div>`;
+          break;
+
+        case "json-formatter":
+          body.innerHTML = `
+            <h2 style="font-family:var(--font-head); margin-bottom:0.5rem;">💻 JSON Formatter & Validator</h2>
+            <div class="form-group"><textarea id="jsonIn" class="form-control" placeholder="Paste unformatted JSON here..."></textarea></div>
+            <button class="btn" onclick="execJSON(2)">Format / Beautify
